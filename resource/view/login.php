@@ -1,13 +1,12 @@
 <?php
 include "db.php";
 session_start();
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST["username"];
     $password = $_POST["password"];
-
-    echo "Input Username: $username<br>";
-    echo "Input Password: $password<br>";
 
     $stmt = $conn->prepare("SELECT * FROM login WHERE username = ?");
     $stmt->bind_param("s", $username);
@@ -16,19 +15,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($result->num_rows === 1) {
         $user = $result->fetch_assoc();
-        echo "Data ditemukan. Hash password di DB:<br>";
-        echo $user["password"] . "<br>";
 
         if (password_verify($password, $user["password"])) {
-            echo "Password cocok!<br>";
             $_SESSION["username"] = $username;
-            header("Location: home.php");
+            $_SESSION["is_admin_logged_in"] = true;
+
+            header("Location: dashboard.php");
             exit;
         } else {
-            echo "Password TIDAK cocok!<br>";
+            $_SESSION['error'] = "Password salah.";
+            header("Location: login_admin.php");
+            exit;
         }
     } else {
-        echo "Username tidak ditemukan di database!<br>";
+        $_SESSION['error'] = "Username tidak ditemukan.";
+        header("Location: login_admin.php");
+        exit;
     }
 }
 ?>
