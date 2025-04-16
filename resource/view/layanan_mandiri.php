@@ -58,7 +58,7 @@
             <a href="agenda.php">Agenda</a>
           </div>
           <div class="nav-kanan">
-            <a href="layanan_mandiri.html">Layanan Mandiri</a>
+            <a href="layanan_mandiri.php">Layanan Mandiri</a>
             <a href="login_admin.php">Login Admin</a>
           </div>
         </div>
@@ -69,7 +69,7 @@
       <div class="card">
         <div class="card-header">
           <div class="title">
-            <i height="10" width="10" class="bi bi-person icon"></i>
+            <i class="bi bi-person icon"></i>
             LAYANAN MANDIRI
           </div>
 
@@ -79,15 +79,19 @@
           </p>
         </div>
         <div class="card-body">
-          <p class="form-title">MASUKKAN NIK DAN PIN !</p>
-          <label for="nik">NIK (NO INDUK KEPENDUDUKAN)</label>
-          <input type="text" id="nik" />
-          <label for="pin">PIN</label>
-          <input type="password" id="pin" />
-          <div class="button-group">
-            <button type="submit">MASUK</button>
-            <a href="#" class="forgot-pin">LUPA PIN?</a>
-          </div>
+          <form action="login_mandiri.php" method="post">
+            <label for="nik">NIK (NO INDUK KEPENDUDUKAN)</label>
+            <input type="text" id="nik" name="nik" required />
+            <label for="pin">PIN</label>
+            <input type="password" id="pin" name="pin" required />
+            <div class="button-group">
+              <button type="submit">MASUK</button>
+              <a href="#" class="forgot-pin">LUPA PIN?</a>
+            </div>
+          </form>
+          <?php if (!empty($_GET['error'])): ?>
+            <p style="color:red; margin-top: 10px;"><?= htmlspecialchars($_GET['error']) ?></p>
+          <?php endif; ?>
         </div>
       </div>
     </div>

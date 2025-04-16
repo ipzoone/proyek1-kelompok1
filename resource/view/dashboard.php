@@ -15,9 +15,8 @@ $total_agenda_result = $conn->query("SELECT COUNT(*) AS total_agenda FROM agenda
 $total_agenda = $total_agenda_result->fetch_assoc()['total_agenda'];
 
 // // Menghitung total pengguna
-// $total_pengguna_result = $conn->query("SELECT COUNT(*) AS total_pengguna FROM users");
-// $total_pengguna = $total_pengguna_result->fetch_assoc()['total_pengguna'];
-// ?>
+$total_pengguna_result = $conn->query("SELECT COUNT(*) AS total_pengguna FROM masyarakat");
+$total_pengguna = $total_pengguna_result->fetch_assoc()['total_pengguna'];
 
 // Simpan nama admin dari session
 $adminName = $_SESSION['username'];
@@ -29,6 +28,7 @@ $adminName = $_SESSION['username'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard Admin</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter&display=swap">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <style>
         * {
             box-sizing: border-box;
@@ -44,7 +44,7 @@ $adminName = $_SESSION['username'];
             height: 100vh;
             width: 240px;
             position: fixed;
-            background-color: #787bc7;
+            background-color: #1e293b;
             color: white;
             padding: 20px;
         }
@@ -70,6 +70,12 @@ $adminName = $_SESSION['username'];
         .sidebar a:hover {
             background-color: #334155;
         }
+        .btn btn-danger {
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
 
         .main {
             margin-left: 240px;
@@ -80,6 +86,8 @@ $adminName = $_SESSION['username'];
             background-color: #22c55e;
             padding: 20px;
             color: white;
+            font-size: 24px;
+            font-family: Arial, Helvetica, sans-serif;
             text-align: center;
             border-radius: 10px;
         }
@@ -105,6 +113,15 @@ $adminName = $_SESSION['username'];
 
         .logout-btn:hover {
             background-color: darkred;
+        }
+        .logout{
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s;
+            margin-top: 20px;
         }
 
         .crud-links {
@@ -136,8 +153,8 @@ $adminName = $_SESSION['username'];
     <a href="dashboard.php">Dashboard</a>
     <a href="artikel_crud.php">Kelola Artikel</a>
     <a href="agenda_crud.php">Kelola Agenda</a>
-    <a href="kelola_pengguna.php">Kelola Pengguna</a>
-    <a href="logout.php">Logout</a>
+    <a href="mandiri_crud.php">Kelola Pengguna</a>
+    <a href="home.php" class="btn btn-danger">Logout</a>
 </div>
 
 <div class="main">
@@ -146,15 +163,15 @@ $adminName = $_SESSION['username'];
     </div>
 
     <div class="card">
-    <h3>Statistik Singkat</h3>
+    <h3>Statistik</h3>
     <ul>
         <li>Total Artikel: <?= $total_artikel ?></li>
         <li>Total Agenda: <?= $total_agenda ?></li>
         <li>Total Pengguna: <?= $total_pengguna ?></li>
     </ul>
-    <form action="logout.php" method="post">
+    <!-- <form action="logout.php" method="post">
         <button class="logout-btn">Logout</button>
-    </form>
+    </form> -->
 </div>
 
 </body>

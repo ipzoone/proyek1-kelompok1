@@ -5,6 +5,10 @@ $username = isset($_SESSION['username']); // Mengambil username dari sesi jika a
 // $password = isset($_SESSION['password']); // Mengambil password dari sesi jika ada
 $query = "SELECT * FROM artikel ORDER BY dibuat_pada DESC LIMIT 3"; // Batasi 3 artikel terbaru
 $result = $conn->query($query);
+if (isset($_SESSION['flash_message'])) {
+  echo "<script>alert('" . $_SESSION['flash_message'] . "');</script>";
+  unset($_SESSION['flash_message']); // hapus supaya nggak muncul lagi saat reload
+}
 ?>
 
 <!DOCTYPE html>

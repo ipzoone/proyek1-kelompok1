@@ -54,6 +54,7 @@ $result = $conn->query("SELECT * FROM agenda ORDER BY tanggal DESC");
                 <?php endwhile; ?>
             </tbody>
         </table>
+        <a href="dashboard.php" class="btn btn-danger mb-3">Keluar</a>
     </div>
 </body>
 </html>
