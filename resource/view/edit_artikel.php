@@ -2,7 +2,6 @@
 include "db.php";
 session_start();
 
-// Periksa apakah ada ID artikel yang dikirimkan melalui URL
 if (!isset($_GET['id'])) {
     echo "Artikel tidak ditemukan!";
     exit;
@@ -10,7 +9,6 @@ if (!isset($_GET['id'])) {
 
 $id = $_GET['id'];
 
-// Ambil data artikel berdasarkan ID
 $stmt = $conn->prepare("SELECT * FROM artikel WHERE id = ?");
 $stmt->bind_param("i", $id);
 $stmt->execute();
@@ -26,24 +24,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Ambil data dari form
     $judul = $_POST['judul'];
     $isi = $_POST['isi'];
-    $penulis = $_POST['penulis'];  // Tambahkan penulis
+    $penulis = $_POST['penulis'];  
     $gambar = $_FILES['gambar']['name'];
 
-    // Proses upload gambar jika ada
     if (!empty($gambar)) {
         $target_dir = "../img/";
         $target_file = $target_dir . basename($gambar);
         move_uploaded_file($_FILES["gambar"]["tmp_name"], $target_file);
     } else {
-        $gambar = $artikel['gambar']; // Menggunakan gambar lama jika tidak diubah
+        $gambar = $artikel['gambar'];
     }
 
-    // Update artikel ke dalam database, termasuk penulis
     $stmt = $conn->prepare("UPDATE artikel SET judul = ?, isi = ?, gambar = ?, penulis = ? WHERE id = ?");
     $stmt->bind_param("ssssi", $judul, $isi, $gambar, $penulis, $id);
     $stmt->execute();
 
-    // Redirect ke halaman artikel setelah berhasil edit
     header("Location: artikel_crud.php");
     exit;
 }

@@ -7,12 +7,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $pin = $_POST['pin'];
 
     // Hash PIN sebelum disimpan ke database
-    $hashed_pin = password_hash($pin, PASSWORD_DEFAULT);
+    $hash = password_hash($pin, PASSWORD_DEFAULT);
 
     // Menyimpan data NIK, Nama, dan PIN yang telah di-hash ke database
     $sql = "INSERT INTO masyarakat (nik, nama, pin) VALUES (?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sss", $nik, $nama, $hashed_pin);
+    $stmt->bind_param("sss", $nik, $nama, $hash);
     $stmt->execute();
 
     // Redirect ke halaman mandiri_crud.php setelah data berhasil disimpan

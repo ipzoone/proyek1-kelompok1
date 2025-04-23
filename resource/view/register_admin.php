@@ -31,7 +31,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Register Admin</title>
     <link rel="stylesheet" href="../css/style.css" />
 </head>
-<body> <div class="bg-head">
+<body> 
+  <div class="bg-head">
       <img
         src="https://1.bp.blogspot.com/-2qXJ0Sm155w/Wg6R6IeIBhI/AAAAAAAAFDc/3CSakAHZ7NEU5X-byzmTFKlIzhobVpkYACLcBGAs/s1600/Indramayu.png"
         alt="Logo"
@@ -55,15 +56,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               </a>
             </div>
             <div class="dropdown">
-              <div class="profil-desa">
-                <a href="galeri.html" class="dropdown-btn">Profil Desa</a>
-              </div>
-              <div class="dropdown-content">
-                <a href="#">Posyandu</a>
-                <a href="#">BUMDes</a>
-                <a href="#">PPKM</a>
-              </div>
-            </div>
+                    <div class="profil-desa">
+                      <a href="home.php" class="dropdown-btn">Profil Desa</a>
+                    </div>
+                      <div class="dropdown-content">
+                          <a href="sejarahdesa.html">Sejarah Desa</a>
+                          <a href="#">Jumlah Penduduk</a>
+                          <a href="#">Fasilitas Desa</a>
+                      </div>
+                  </div>
             <div class="dropdown">
               <div class="program-desa">
                 <a href="biografi.html" class="dropdown-btn">Program Desa</a>
@@ -74,10 +75,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <a href="#">Program Kesehatan</a>
               </div>
             </div>
-            <a href="#">Agenda</a>
+            <a href="artikel.php">Artikel</a>
+            <a href="agenda.php">Agenda</a>
           </div>
           <div class="nav-kanan">
-            <a href="layanan_mandiri.html">Layanan Mandiri</a>
+            <a href="layanan_mandiri.php">Layanan Mandiri</a>
             <a href="login_admin.php">Login Admin</a>
           </div>
         </div>

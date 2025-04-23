@@ -18,9 +18,6 @@ $result = $conn->query("SELECT * FROM masyarakat");
     <div class="container py-5">
         <h2 class="mb-4">Data Warga Layanan Mandiri</h2>
         <a href="tambah_mandiri.php" class="btn btn-success mb-3">+ Tambah Data</a>
-        <a href="layanan_mandiri.php" class="btn btn-primary mb-3">Halaman Layanan Mandiri</a>
-        <a href="dashboard.php" class="btn btn-danger mb-3">Keluar</a>
-        
         <table class="table table-bordered bg-white">
             <thead class="table-dark">
                 <tr>
@@ -41,9 +38,10 @@ $result = $conn->query("SELECT * FROM masyarakat");
                             <a href="hapus_mandiri.php?id=<?= $row['id'] ?>" onclick="return confirm('Yakin hapus?')" class="btn btn-sm btn-danger">Hapus</a>
                         </td>
                     </tr>
-                <?php endwhile; ?>
-            </tbody>
-        </table>
+                    <?php endwhile; ?>
+                </tbody>
+            </table>
+            <a href="dashboard.php" class="btn btn-danger mb-3">Keluar</a>
     </div>
 </body>
 </html>

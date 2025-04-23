@@ -1,25 +1,20 @@
 <?php
-session_start();
-$error = '';
-if (isset($_SESSION['error'])) {
-    $error = $_SESSION['error'];
-    unset($_SESSION['error']);
-}
+include "db.php"; 
+$query = "SELECT * FROM artikel ORDER BY dibuat_pada DESC";
+$result = $conn->query($query);
 ?>
 
 <!DOCTYPE html>
-<html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Login Desa Pamayahan</title>
-    <link rel="stylesheet" href="../css/cssadmin.css" />
-    <link rel="stylesheet" href="../css/style.css" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-  </head>
-  <body>
-  <div class="bg-head">
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Artikel</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+<div class="bg-head">
     <img
       src="https://1.bp.blogspot.com/-2qXJ0Sm155w/Wg6R6IeIBhI/AAAAAAAAFDc/3CSakAHZ7NEU5X-byzmTFKlIzhobVpkYACLcBGAs/s1600/Indramayu.png"
       alt="Logo"
@@ -80,57 +75,40 @@ if (isset($_SESSION['error'])) {
       </div>
     </nav>
   </header>
+  <div class="container py-5">
+    <h2 class="mb-4">Semua Artikel</h2>
 
-    <div class="container-admin">
-      <div class="login-card">
-      <?php if (!empty($error)): ?>
-      <div style="color: red; margin-bottom: 10px; text-align: center;">
-      <?= htmlspecialchars($error); ?>
-      </div>
-      <?php endif; ?>
-
-        <img
-          src="https://1.bp.blogspot.com/-2qXJ0Sm155w/Wg6R6IeIBhI/AAAAAAAAFDc/3CSakAHZ7NEU5X-byzmTFKlIzhobVpkYACLcBGAs/s1600/Indramayu.png"
-          alt="Logo Desa"
-          class="logo"
-        />
-        <h2 class="desa-title">DESA PAMAYAHAN</h2>
-        <p class="alamat">
-          JALAN LOHBENER , KEC. LOHBENER<br />KABUPATEN INDRAMAYU<br />KODE POS
-          45252
-        </p>
-
-        <form action="login.php" method="post">
-          <input
-            name="username"
-            type="text"
-            class="input-field"
-            placeholder="USERNAME"
-          />
-          <input
-            name="password"
-            id="password"
-            type="password"
-            class="input-field"
-            placeholder="PASSWORD"
-          />
-
-          <div class="checkbox-container">
-        <label>
-        <input type="checkbox" id="show-password" /> TAMPILKAN KATA SANDI
-        </label>
-        <a href="register_admin.php" class="forgot">Daftar Admin</a>
+    <?php while ($row = $result->fetch_assoc()): ?>
+      <div class="card mb-4 shadow-sm">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <a href="detail-artikel.php?id=<?= $row['id'] ?>">
+              <img src="../img/<?= htmlspecialchars($row['gambar']) ?>" class="img-fluid rounded-start" alt="<?= htmlspecialchars($row['judul']) ?>">
+            </a>
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">
+                <a href="detail-artikel.php?id=<?= $row['id'] ?>" class="text-decoration-none text-dark">
+                  <?= htmlspecialchars($row['judul']) ?>
+                </a>
+              </h5>
+              <p class="card-text">
+                <?php
+                $ringkas = substr(strip_tags($row['isi']), 0, 120);
+                echo $ringkas . (strlen($row['isi']) > 120 ? '...' : '');
+                ?>
+              </p>
+              <p class="card-text">
+                <small class="text-muted">
+                  📅 <?= date('d F Y', strtotime($row['dibuat_pada'])) ?> | 👤 <?= htmlspecialchars($row['penulis']) ?>
+                </small>
+              </p>
+            </div>
+          </div>
         </div>
-          <button type="submit" class="login-btn">MASUK</button>
-        </form>
       </div>
-    </div>
-    <script>
-    document.getElementById("show-password").addEventListener("change", function () {
-    const passwordInput = document.getElementById("password");
-    passwordInput.type = this.checked ? "text" : "password";
-    });
-</script>
-
-  </body>
+    <?php endwhile; ?>
+  </div>
+</body>
 </html>

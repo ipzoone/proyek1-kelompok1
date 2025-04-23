@@ -88,17 +88,30 @@ nav a {
   height: auto;
 }
 .nav-kanan {
-  margin-left: 500px;
+  margin-left: 400px;
   display: flex;
+}
+.login-btn a {
+  margin: 5px;
+  background-color: green;
+}
+.nav-kanan span {
+  margin-left: 70px;
+  display: flex;
+  color: white;
+}
+.nav-kanan .logout-btn {
+  background-color: red;
+  margin-left: 70px;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 7px;
 }
 .nav-kiri,
 .nav-kanan {
   display: flex;
   gap: 5px;
   align-items: center;
-}
-.nav-kanan a {
-  background-color: green;
 }
 
 .nav-links {

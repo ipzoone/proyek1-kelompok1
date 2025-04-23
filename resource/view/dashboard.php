@@ -10,7 +10,7 @@ if (!isset($_SESSION['is_admin_logged_in']) || $_SESSION['is_admin_logged_in'] !
 $total_artikel_result = $conn->query("SELECT COUNT(*) AS total_artikel FROM artikel");
 $total_artikel = $total_artikel_result->fetch_assoc()['total_artikel'];
 
-//Menghitung total agenda (misalnya dari tabel agenda)
+//Menghitung total agenda 
 $total_agenda_result = $conn->query("SELECT COUNT(*) AS total_agenda FROM agenda");
 $total_agenda = $total_agenda_result->fetch_assoc()['total_agenda'];
 
@@ -82,15 +82,38 @@ $adminName = $_SESSION['username'];
             padding: 30px;
         }
 
-        .header {
-            background-color: #22c55e;
-            padding: 20px;
-            color: white;
-            font-size: 24px;
-            font-family: Arial, Helvetica, sans-serif;
-            text-align: center;
-            border-radius: 10px;
-        }
+.admin-header {
+    background: linear-gradient(to right, #304352, #485563);
+    padding: 24px 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    margin-bottom: 25px;
+}
+
+.welcome-text {
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 500;
+    margin: 0;
+    letter-spacing: 0.3px;
+}
+
+.admin-name {
+    font-weight: 700;
+    position: relative;
+    padding-bottom: 2px;
+}
+
+.admin-name::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 2px;
+}
 
         .card {
             background-color: white;
@@ -144,6 +167,89 @@ $adminName = $_SESSION['username'];
         .crud-links a:hover {
             background-color: #2563eb;
         }
+        .stats-card {
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+.stats-header {
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.stats-title {
+    color: #333;
+    font-size: 22px;
+    margin: 0;
+    font-weight: 600;
+}
+
+.stats-subtitle {
+    color: #777;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.stats-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.stats-item {
+    flex: 1;
+    min-width: 180px;
+    display: flex;
+    align-items: center;
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.stats-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
+}
+
+.stats-icon {
+    background:rgb(199, 40, 31);
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    font-size: 20px;
+}
+
+.stats-item:nth-child(2) .stats-icon {
+    background: #6c5ce7;
+}
+
+.stats-item:nth-child(3) .stats-icon {
+    background:rgb(128, 223, 12);
+}
+
+.stats-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: #333;
+}
+
+.stats-label {
+    color: #666;
+    font-size: 14px;
+    margin-top: 5px;
+}
     </style>
 </head>
 <body>
@@ -158,20 +264,47 @@ $adminName = $_SESSION['username'];
 </div>
 
 <div class="main">
-    <div class="header">
-        <h1>Selamat Datang, <?= htmlspecialchars($adminName); ?>!</h1>
-    </div>
+<div class="admin-header">
+    <h1 class="welcome-text">Selamat Datang, <span class="admin-name"><?= htmlspecialchars($adminName); ?></span></h1>
+</div>
 
-    <div class="card">
-    <h3>Statistik</h3>
-    <ul>
-        <li>Total Artikel: <?= $total_artikel ?></li>
-        <li>Total Agenda: <?= $total_agenda ?></li>
-        <li>Total Pengguna: <?= $total_pengguna ?></li>
-    </ul>
-    <!-- <form action="logout.php" method="post">
-        <button class="logout-btn">Logout</button>
-    </form> -->
+    <div class="stats-card">
+    <div class="stats-header">
+        <h2 class="stats-title">Statistik Dashboard</h2>
+        <div class="stats-subtitle">Ringkasan data sistem</div>
+    </div>
+    
+    <div class="stats-container">
+        <div class="stats-item">
+            <div class="stats-icon">
+                <i class="fas fa-newspaper"></i>
+            </div>
+            <div class="stats-info">
+                <div class="stats-value"><?= $total_artikel ?></div>
+                <div class="stats-label">Total Artikel</div>
+            </div>
+        </div>
+        
+        <div class="stats-item">
+            <div class="stats-icon">
+                <i class="fas fa-calendar-check"></i>
+            </div>
+            <div class="stats-info">
+                <div class="stats-value"><?= $total_agenda ?></div>
+                <div class="stats-label">Total Agenda</div>
+            </div>
+        </div>
+        
+        <div class="stats-item">
+            <div class="stats-icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <div class="stats-info">
+                <div class="stats-value"><?= $total_pengguna ?></div>
+                <div class="stats-label">Total Pengguna</div>
+            </div>
+        </div>
+    </div>
 </div>
 
 </body>
