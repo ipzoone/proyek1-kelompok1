@@ -102,5 +102,8 @@
         </div>
       </div>
     </div>
+    <footer>
+    <p>&copy; 2025 Desa Pamayahan</p>
+    </footer>
   </body>
 </html>

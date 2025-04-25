@@ -121,16 +121,21 @@ if (isset($_SESSION['error'])) {
         </label>
         <a href="register_admin.php" class="forgot">Daftar Admin</a>
         </div>
+        <div class="login-btn">
           <button type="submit" class="login-btn">MASUK</button>
+        </div>
         </form>
       </div>
     </div>
+    <footer>
+    <p>&copy; 2025 Desa Pamayahan</p>
+    </footer>
     <script>
     document.getElementById("show-password").addEventListener("change", function () {
     const passwordInput = document.getElementById("password");
     passwordInput.type = this.checked ? "text" : "password";
     });
-</script>
+    </script>
 
   </body>
 </html>

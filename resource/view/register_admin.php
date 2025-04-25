@@ -30,6 +30,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <title>Register Admin</title>
     <link rel="stylesheet" href="../css/style.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 <body> 
   <div class="bg-head">
@@ -79,8 +81,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <a href="agenda.php">Agenda</a>
           </div>
           <div class="nav-kanan">
+          <div class="login-btn">
             <a href="layanan_mandiri.php">Layanan Mandiri</a>
             <a href="login_admin.php">Login Admin</a>
+          </div>
           </div>
         </div>
       </nav>
@@ -92,5 +96,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input type="password" name="password" placeholder="Password Admin" required><br>
         <button type="submit">Daftar Admin</button>
     </form>
+    <footer>
+    <p>&copy; 2025 Desa Pamayahan</p>
+  </footer>
 </body>
 </html>
