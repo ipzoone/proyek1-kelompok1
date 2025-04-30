@@ -1,10 +1,10 @@
 <?php
-include "db.php";
+include "../db.php";
 session_start();
 
 // Proteksi halaman
 if (!isset($_SESSION['is_admin_logged_in']) || $_SESSION['is_admin_logged_in'] !== true) {
-    header("Location: login.php");
+    header("Location: ../login_admin.php");
     exit;
 }
 

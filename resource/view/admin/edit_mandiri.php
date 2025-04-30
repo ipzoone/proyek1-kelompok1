@@ -1,5 +1,5 @@
 <?php
-include 'db.php';
+include '../db.php';
 $id = $_GET['id'];
 $data = $conn->query("SELECT * FROM masyarakat WHERE id=$id")->fetch_assoc();
 
@@ -72,8 +72,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
                 <small class="text-muted">Kosongkan jika tidak ingin mengubah PIN.</small>
             </div>
-            <button type="submit" class="btn btn-success">Update</button>
-            <a href="mandiri_crud.php" class="btn btn-danger">Kembali</a>
+            <button type="submit" class="btn btn-success">Simpan</button>
+            <a href="mandiri_crud.php" class="btn btn-danger">Batal</a>
         </form>
     </div>
 </body>

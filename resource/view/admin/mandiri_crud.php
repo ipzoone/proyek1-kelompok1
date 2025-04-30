@@ -1,5 +1,5 @@
 <?php
-include 'db.php';
+include '../db.php';
 $result = $conn->query("SELECT * FROM masyarakat");
 ?>
 <!DOCTYPE html>

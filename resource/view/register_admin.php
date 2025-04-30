@@ -83,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           <div class="nav-kanan">
           <div class="login-btn">
             <a href="layanan_mandiri.php">Layanan Mandiri</a>
-            <a href="login_admin.php">Login Admin</a>
+            <a href="admin.php">Login Admin</a>
           </div>
           </div>
         </div>

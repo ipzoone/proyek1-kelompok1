@@ -1,10 +1,10 @@
 <?php
-include "db.php";
+include "../db.php";
 session_start();
 
 // Proteksi halaman
 if (!isset($_SESSION['is_admin_logged_in']) || $_SESSION['is_admin_logged_in'] !== true) {
-    header("Location: login.php");
+    header("Location: ../login_admin.php");
     exit;
 }
 
@@ -82,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </select>
             </div>
             <button type="submit" class="btn btn-success">Simpan</button>
-            <a href="agenda_crud.php" class="btn btn-secondary">Kembali</a>
+            <a href="agenda_crud.php" class="btn btn-danger">Batal</a>
         </form>
     </div>
 </body>

@@ -1,3 +1,7 @@
+<?php
+session_start();
+include "db.php";
+?>
 <!DOCTYPE html>
 <html lang="id">
   <head>
@@ -20,7 +24,6 @@
       <p>Kec. Lohbener, Kab. Indramayu, Prov. Jawa Barat</p>
     </div>
   </div>
-
   <header>
     <nav>
       <button class="hamburger">☰</button>
@@ -55,25 +58,38 @@
           <a href="agenda.php">Agenda</a>
         </div>
         <div class="nav-kanan">
-          <?php if (isset($_SESSION['is_logged_in'])): ?>
-            <span class="text-white me-2"><img src="https://img.icons8.com/?size=100&id=85356&format=png&color=FFFFFF" class="img-fluid" style="max-width: 30px; margin: 2px;">   <?= htmlspecialchars($_SESSION['nama']) ?>
-          <img src="https://img.icons8.com/?size=100&id=85913&format=png&color=40C057"  class="img-fluid" style="max-width: 30px; width: 10px; height: 10px; margin-left:5px; margin-top: 10px;"></span>
-           <div class="logout-btn">
-             <a href="logout.php">Logout</a>
-            </div>
-          <?php else: ?>
-            <div class="login-btn">
-              <a href="layanan_mandiri.php">Layanan Mandiri</a>
-              <a href="login_admin.php">Login Admin</a>
-            </div>
-          <?php endif; ?>
+      <?php if (isset($_SESSION['is_logged_in'])): ?>
+        <div class="pojok-kanan">
+          <div class="dropdown">
+            <a class="nav-link dropdown-toggle d-flex align-items-center text-white text-decoration-none" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="bi bi-person-circle me-2" style="font-size: 1.5rem;"></i>
+              <?= htmlspecialchars($_SESSION['nama']) ?>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+              <li><a class="dropdown-item" href="#">Profil</a></li>
+              <li><a class="dropdown-item" href="setting.php">Pengaturan</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="logout.php">Logout</a></li>
+            </ul>
+          </div>
         </div>
-      </div>
+     <?php else: ?>
+        <div class="login-btn">
+          <a href="layanan_mandiri.php">Layanan Mandiri</a>
+          <a href="admin.php">Login Admin</a>
+       </div>
+     <?php endif; ?>
+        </div>
+       </div>
     </nav>
   </header>
 
     <div class="container-layanan">
       <div class="card">
+    <?php if (isset($_SESSION["flash_message"])) {
+        echo $_SESSION["flash_message"];
+        unset($_SESSION["flash_message"]);
+    } ?>
         <div class="card-header">
           <div class="title">
             <i class="bi bi-person icon"></i>
@@ -105,5 +121,6 @@
     <footer>
     <p>&copy; 2025 Desa Pamayahan</p>
     </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

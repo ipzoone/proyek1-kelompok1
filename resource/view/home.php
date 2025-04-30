@@ -4,15 +4,22 @@ session_start();
 
 $username = $_SESSION['username'] ?? null;
 
-$query = "SELECT * FROM artikel ORDER BY dibuat_pada DESC LIMIT 3";
+$limit = 3; 
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+if ($page < 1) $page = 1;
+$offset = ($page - 1) * $limit;
+
+$query = "SELECT * FROM artikel ORDER BY dibuat_pada DESC LIMIT $limit OFFSET $offset";
 $result = $conn->query($query);
+
+$total_artikel = $conn->query("SELECT COUNT(*) AS total FROM artikel")->fetch_assoc()['total'];
+$total_halaman = ceil($total_artikel / $limit);
 
 if (isset($_SESSION['flash_message'])) {
   echo "<script>alert('" . $_SESSION['flash_message'] . "');</script>";
   unset($_SESSION['flash_message']);
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -80,7 +87,7 @@ if (isset($_SESSION['flash_message'])) {
           <?php else: ?>
             <div class="login-btn">
               <a href="layanan_mandiri.php">Layanan Mandiri</a>
-              <a href="login_admin.php">Login Admin</a>
+              <a href="admin.php">Login Admin</a>
             </div>
           <?php endif; ?>
         </div>
@@ -168,21 +175,36 @@ if (isset($_SESSION['flash_message'])) {
     </div>
   </section>
 
-  <div class="container">
-    <div class="pagination">
-      <div class="page-info">Halaman 1 dari 5</div>
-      <div class="page-numbers">
-        <a href="#" class="page-number">1</a>
-        <a href="#" class="page-number">2</a>
-        <a href="#" class="page-number">3</a>
-        <a href="#" class="page-number">4</a>
-        <a href="#" class="page-number">5</a>
-      </div>
-    </div>
+  <div class="container mt-4 mb-5">
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+        <?php if ($page > 1): ?>
+          <li class="page-item">
+            <a class="page-link" href="?page=<?= $page - 1 ?>">
+              <i class="bi bi-chevron-left"></i>
+            </a>
+          </li>
+        <?php endif; ?>
+
+        <?php for ($i = 1; $i <= $total_halaman; $i++): ?>
+          <li class="page-item <?= $i == $page ? 'active' : '' ?>">
+            <a class="page-link" href="?page=<?= $i ?>"><?= $i ?></a>
+          </li>
+        <?php endfor; ?>
+
+        <?php if ($page < $total_halaman): ?>
+          <li class="page-item">
+            <a class="page-link" href="?page=<?= $page + 1 ?>">
+             <i class="bi bi-chevron-right"></i>
+            </a>
+          </li>
+        <?php endif; ?>
+      </ul>
+    </nav>
   </div>
 
+</body>
   <footer>
     <p>&copy; 2025 Desa Pamayahan</p>
   </footer>
-</body>
 </html>

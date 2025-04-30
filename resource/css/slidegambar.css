@@ -21,8 +21,8 @@
 }
 
 .slide img {
-  width: 100%;
-  height: auto;
+  width: 800px;
+  height: 400px;
   object-fit: cover;
 }
 

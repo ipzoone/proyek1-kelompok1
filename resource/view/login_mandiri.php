@@ -8,8 +8,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $nama = $_POST["nama"];
     $pin = $_POST["pin"];
 
-    // $hash = password_hash($pin, PASSWORD_DEFAULT);
-
     $stmt = $conn->prepare("SELECT * FROM masyarakat WHERE nama = ?");
     $stmt->bind_param("s",$nama);
     $stmt->execute();
@@ -17,24 +15,23 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if ($result->num_rows === 1) {
         $user = $result->fetch_assoc();
-        // $_SESSION["nik"] = $user["nik"];
         if(password_verify($pin, $user["pin"])){
             $_SESSION["nama"] = $nama;
             $_SESSION["is_logged_in"] = true;
-            $_SESSION["flash_message"] = "Selamat datang, " . $user["nama"] . "! Anda berhasil login.";
-
-            header("Location: home.php");
+            $_SESSION["flash_message"] = "<div class='alert alert-success alert-dismissible fade show' role='alert'>Anda Berhasil login!
+            <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+            </div>";
+            header("Location: layanan_mandiri.php");
             exit;
         }
         else {
-            $error = "Username atau PIN salah!";
-            header("Location: layanan_mandiri.php?error=" . urlencode($error));
+            $_SESSION["flash_message"] = "<div class='alert alert-danger alert-dismissible fade show' role='alert'>Username atau PIN salah!
+            <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+            </div>";
+            header("Location: layanan_mandiri.php");
+
             exit;
         }
-    }  else {
-        $_SESSION['error'] = "Username tidak ditemukan.";
-        header("Location: layanan_mandiri.php");
-        exit;
     }
 }
 ?>

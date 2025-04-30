@@ -1,5 +1,5 @@
 <?php
-include 'db.php';
+include '../db.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nik = $_POST['nik'];
@@ -15,7 +15,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bind_param("sss", $nik, $nama, $hash);
     $stmt->execute();
 
-    // Redirect ke halaman mandiri_crud.php setelah data berhasil disimpan
     header("Location: mandiri_crud.php");
     exit;
 }

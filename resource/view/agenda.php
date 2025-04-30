@@ -70,7 +70,7 @@ $result = $conn->query("SELECT * FROM agenda ORDER BY tanggal ASC"); // Menampil
           <?php else: ?>
             <div class="login-btn">
               <a href="layanan_mandiri.php">Layanan Mandiri</a>
-              <a href="login_admin.php">Login Admin</a>
+              <a href="admin.php">Login Admin</a>
             </div>
           <?php endif; ?>
         </div>
@@ -92,5 +92,8 @@ $result = $conn->query("SELECT * FROM agenda ORDER BY tanggal ASC"); // Menampil
 </div>
     
 </body>
+<footer>
+        <p>&copy; 2025 Desa Pamayahan</p>
+</footer>
 </html>
 
