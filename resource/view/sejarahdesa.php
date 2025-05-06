@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="id">
   <head>
@@ -13,64 +17,86 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
       rel="stylesheet"
     />
-    <title>Profile Desa</title>
+    <script src="../js/script.js"></script>
+    <title>Sejarah Desa</title>
   </head>
   <body>
-    <div class="bg-head">
-      <img
-        src="https://1.bp.blogspot.com/-2qXJ0Sm155w/Wg6R6IeIBhI/AAAAAAAAFDc/3CSakAHZ7NEU5X-byzmTFKlIzhobVpkYACLcBGAs/s1600/Indramayu.png"
-        alt="Logo"
-      />
-      <div class="text-container">
-        <h1>DESA PAMAYAHAN</h1>
-        <p>Kec. Lohbener, Kab. Indramayu, Prov. Jawa Barat</p>
-      </div>
+  <div class="bg-head">
+    <img
+      src="https://1.bp.blogspot.com/-2qXJ0Sm155w/Wg6R6IeIBhI/AAAAAAAAFDc/3CSakAHZ7NEU5X-byzmTFKlIzhobVpkYACLcBGAs/s1600/Indramayu.png"
+      alt="Logo"
+    />
+    <div class="text-container">
+      <h1>DESA PAMAYAHAN</h1>
+      <p>Kec. Lohbener, Kab. Indramayu, Prov. Jawa Barat</p>
     </div>
-    <header>
-      <nav>
-        <button class="hamburger">☰</button>
-        <div class="nav-links">
-          <div class="nav-kiri">
-            <div class="home-icons">
-              <a href="home.php">
-                <img
-                  src="https://img.icons8.com/ios-glyphs/30/FFFFFF/home.png"
-                  alt="home"
-                />
-              </a>
-            </div>
-            <div class="dropdown">
-              <div class="profil-desa">
-                <a href="home.php" class="dropdown-btn">Profil Desa</a>
-              </div>
-              <div class="dropdown-content">
-                <a href="sejarahdesa.html">Sejarah Desa</a>
-                <a href="#">Jumlah Penduduk</a>
-                <a href="#">Fasilitas Desa</a>
-              </div>
-            </div>
-            <div class="dropdown">
-              <div class="program-desa">
-                <a href="biografi.html" class="dropdown-btn">Program Desa</a>
-              </div>
-              <div class="dropdown-content">
-                <a href="#">Program Pertanian</a>
-                <a href="#">Program Pendidikan</a>
-                <a href="#">Program Kesehatan</a>
-              </div>
-            </div>
-            <a href="artikel.php">Artikel</a>
-            <a href="agenda.php">Agenda</a>
+  </div>
+
+  <header>
+    <nav>
+      <button class="hamburger">☰</button>
+      <div class="nav-links">
+        <div class="nav-kiri">
+          <div class="home-icons">
+            <a href="home.php">
+              <img src="https://img.icons8.com/ios-glyphs/30/FFFFFF/home.png" alt="home" />
+            </a>
           </div>
-          <div class="nav-kanan">
-            <a href="layanan_mandiri.php">Layanan Mandiri</a>
-            <a href="admin.php">Login Admin</a>
+          <div class="dropdown">
+            <div class="profil-desa">
+              <a href="#" class="dropdown-btn">Profil Desa <i class="bi bi-caret-down-fill"></i></a>
+            </div>
+            <div class="dropdown-content">
+              <a href="sejarahdesa.php">Sejarah Desa</a>
+              <a href="jumlahpenduduk.php">Jumlah Penduduk</a>
+              <a href="fasilitasdesa.php">Fasilitas Desa</a>
+            </div>
+          </div>
+          <div class="dropdown">
+            <div class="program-desa">
+              <a href="#" class="dropdown-btn">Program Desa <i class="bi bi-caret-down-fill"></i></a>
+            </div>
+            <div class="dropdown-content">
+              <a href="program-pertanian.php">Program Pertanian</a>
+              <a href="program-pendidikan.php">Program Pendidikan</a>
+              <a href="program-kesehatan.php">Program Kesehatan</a>
+             </div>
+            </div>
+          <a href="artikel.php">Artikel</a>
+          <a href="agenda.php">Agenda</a>
+        </div>
+        <div class="nav-kanan">
+      <?php if (isset($_SESSION['is_logged_in'])): ?>
+        <div class="pojok-kanan">
+          <div class="dropdown">
+            <a class="nav-link dropdown-toggle d-flex align-items-center text-white text-decoration-none" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="bi bi-person-circle me-2" style="font-size: 1.5rem;"></i>
+              <?= htmlspecialchars($_SESSION['nama']) ?>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+              <li><a class="dropdown-item" href="#">Profil</a></li>
+              <li><a class="dropdown-item" href="setting.php">Pengaturan</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="logout.php">Logout</a></li>
+            </ul>
           </div>
         </div>
-      </nav>
-    </header>
+     <?php else: ?>
+        <div class="login-btn">
+          <a href="layanan_mandiri.php">Layanan Mandiri</a>
+          <a href="admin.php">Login Admin</a>
+       </div>
+     <?php endif; ?>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+
     <div class="container">
-      <h1>Profile Desa</h1>
+      <div class="judul">
+        <h1>Profile Desa</h1>
+      </div>
       <section>
         <h4>1. Sejarah Desa Pamayahan</h4>
         <p>
@@ -110,8 +136,9 @@
         </p>
       </section>
     </div>
+    <footer>
+      <p>&copy; 2025 Desa Pamayahan</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   </body>
-  <footer>
-    <p>&copy; 2025 Desa Pamayahan</p>
-  </footer>
 </html>

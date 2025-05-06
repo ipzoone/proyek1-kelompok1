@@ -12,6 +12,7 @@ include "db.php";
     <link rel="stylesheet" href="../css/style.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <script src="../js/script.js"></script>
   </head>
   <body>
   <div class="bg-head">
@@ -24,6 +25,7 @@ include "db.php";
       <p>Kec. Lohbener, Kab. Indramayu, Prov. Jawa Barat</p>
     </div>
   </div>
+
   <header>
     <nav>
       <button class="hamburger">☰</button>
@@ -36,24 +38,24 @@ include "db.php";
           </div>
           <div class="dropdown">
             <div class="profil-desa">
-              <a href="#" class="dropdown-btn">Profil Desa</a>
+              <a href="#" class="dropdown-btn">Profil Desa <i class="bi bi-caret-down-fill"></i></a>
             </div>
             <div class="dropdown-content">
-              <a href="sejarahdesa.html">Sejarah Desa</a>
-              <a href="#">Jumlah Penduduk</a>
-              <a href="#">Fasilitas Desa</a>
+              <a href="sejarahdesa.php">Sejarah Desa</a>
+              <a href="jumlahpenduduk.php">Jumlah Penduduk</a>
+              <a href="fasilitasdesa.php">Fasilitas Desa</a>
             </div>
           </div>
           <div class="dropdown">
             <div class="program-desa">
-              <a href="#" class="dropdown-btn">Program Desa</a>
+              <a href="#" class="dropdown-btn">Program Desa <i class="bi bi-caret-down-fill"></i></a>
             </div>
             <div class="dropdown-content">
-              <a href="#">Program Pertanian</a>
-              <a href="#">Program Pendidikan</a>
-              <a href="#">Program Kesehatan</a>
+              <a href="program-pertanian.php">Program Pertanian</a>
+              <a href="program-pendidikan.php">Program Pendidikan</a>
+              <a href="program-kesehatan.php">Program Kesehatan</a>
+             </div>
             </div>
-          </div>
           <a href="artikel.php">Artikel</a>
           <a href="agenda.php">Agenda</a>
         </div>
@@ -80,7 +82,7 @@ include "db.php";
        </div>
      <?php endif; ?>
         </div>
-       </div>
+      </div>
     </nav>
   </header>
 

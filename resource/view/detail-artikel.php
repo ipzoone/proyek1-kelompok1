@@ -1,6 +1,7 @@
 <?php
 include "db.php";
-
+// require_once "komentar.php";
+session_start();
 if (!isset($_GET['id'])) {
     echo "Artikel tidak ditemukan!";
     exit;
@@ -25,10 +26,13 @@ $artikel = $result->fetch_assoc();
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><?= htmlspecialchars($artikel['judul']) ?></title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/script.js"></script>
 </head>
 <div class="bg-head">
     <img
@@ -40,6 +44,7 @@ $artikel = $result->fetch_assoc();
       <p>Kec. Lohbener, Kab. Indramayu, Prov. Jawa Barat</p>
     </div>
   </div>
+
   <header>
     <nav>
       <button class="hamburger">☰</button>
@@ -52,53 +57,63 @@ $artikel = $result->fetch_assoc();
           </div>
           <div class="dropdown">
             <div class="profil-desa">
-              <a href="#" class="dropdown-btn">Profil Desa</a>
+              <a href="#" class="dropdown-btn">Profil Desa <i class="bi bi-caret-down-fill"></i></a>
             </div>
             <div class="dropdown-content">
-              <a href="sejarahdesa.html">Sejarah Desa</a>
-              <a href="#">Jumlah Penduduk</a>
-              <a href="#">Fasilitas Desa</a>
+              <a href="sejarahdesa.php">Sejarah Desa</a>
+              <a href="jumlahpenduduk.php">Jumlah Penduduk</a>
+              <a href="fasilitasdesa.php">Fasilitas Desa</a>
             </div>
           </div>
           <div class="dropdown">
             <div class="program-desa">
-              <a href="#" class="dropdown-btn">Program Desa</a>
+              <a href="#" class="dropdown-btn">Program Desa <i class="bi bi-caret-down-fill"></i></a>
             </div>
             <div class="dropdown-content">
-              <a href="#">Program Pertanian</a>
-              <a href="#">Program Pendidikan</a>
-              <a href="#">Program Kesehatan</a>
+              <a href="program-pertanian.php">Program Pertanian</a>
+              <a href="program-pendidikan.php">Program Pendidikan</a>
+              <a href="program-kesehatan.php">Program Kesehatan</a>
+             </div>
             </div>
-          </div>
           <a href="artikel.php">Artikel</a>
           <a href="agenda.php">Agenda</a>
         </div>
         <div class="nav-kanan">
-          <?php if (isset($_SESSION['is_logged_in'])): ?>
-            <span class="text-white me-2"><img src="https://img.icons8.com/?size=100&id=85356&format=png&color=FFFFFF" class="img-fluid" style="max-width: 30px; margin: 2px;">   <?= htmlspecialchars($_SESSION['nama']) ?>
-          <img src="https://img.icons8.com/?size=100&id=85913&format=png&color=40C057"  class="img-fluid" style="max-width: 30px; width: 10px; height: 10px; margin-left:5px; margin-top: 10px;"></span>
-           <div class="logout-btn">
-             <a href="logout.php">Logout</a>
-            </div>
-          <?php else: ?>
-            <div class="login-btn">
-              <a href="layanan_mandiri.php">Layanan Mandiri</a>
-              <a href="admin.php">Login Admin</a>
-            </div>
-          <?php endif; ?>
+      <?php if (isset($_SESSION['is_logged_in'])): ?>
+        <div class="pojok-kanan">
+          <div class="dropdown">
+            <a class="nav-link dropdown-toggle d-flex align-items-center text-white text-decoration-none" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="bi bi-person-circle me-2" style="font-size: 1.5rem;"></i>
+              <?= htmlspecialchars($_SESSION['nama']) ?>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+              <li><a class="dropdown-item" href="#">Profil</a></li>
+              <li><a class="dropdown-item" href="setting.php">Pengaturan</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="logout.php">Logout</a></li>
+            </ul>
+          </div>
+        </div>
+     <?php else: ?>
+        <div class="login-btn">
+          <a href="layanan_mandiri.php">Layanan Mandiri</a>
+          <a href="admin.php">Login Admin</a>
+       </div>
+     <?php endif; ?>
         </div>
       </div>
     </nav>
   </header>
+
 <body class="bg-light">
     <div class="container py-5">
         <a href="artikel.php" class="btn btn-danger mb-4">← Kembali</a>
         
         <h1><?= htmlspecialchars($artikel['judul']) ?></h1>
         <p class="text-muted">
-            📅 <?= date('d F Y', strtotime($artikel['dibuat_pada'])) ?> |
-            👤 <?= htmlspecialchars($artikel['penulis']) ?>
-        </p>
+     <i class="bi bi-calendar-event"></i> <?= date('d F Y', strtotime($artikel['dibuat_pada'])) ?> |
+     <i class="bi bi-person"></i> <?= htmlspecialchars($artikel['penulis']) ?>
+       </p>
         <?php if (!empty($artikel['gambar'])): ?>
             <img src="../img/<?= htmlspecialchars($artikel['gambar']) ?>" alt="<?= htmlspecialchars($artikel['judul']) ?>" class="img-fluid my-4">
         <?php endif; ?>
@@ -107,53 +122,34 @@ $artikel = $result->fetch_assoc();
             <?= nl2br($artikel['isi']) ?>
         </div>
     </div>
-    <div class="card mb-5">
+
+    <?php if (! empty($_SESSION['is_logged_in'])): ?>
+      <div class="card mb-5">
         <div class="card-header bg-secondary text-white">
           <h5 class="mb-0">Tinggalkan Komentar</h5>
         </div>
         <div class="card-body">
-          <form
-            id="commentForm"
-            method="POST"
-            action="index.php?halaman=detail&id=<?php echo $article_id; ?>"
-          >
-            <div class="mb-3">
-              <label for="name" class="form-label">Nama</label>
-              <input
-                type="text"
-                class="form-control"
-                id="name"
-                name="name"
-                required
-              />
-            </div>
-            <div class="mb-3">
-              <label for="email" class="form-label">Email</label>
-              <input
-                type="email"
-                class="form-control"
-                id="email"
-                name="email"
-                required
-              />
-            </div>
-            <div class="mb-3">
-              <label for="comment" class="form-label">Komentar</label>
-              <textarea
-                class="form-control"
-                id="comment"
-                name="comment"
-                rows="5"
-                required
-              ></textarea>
-            </div>
+          <form method="POST" action="proses_komentar.php">
+            <input type="hidden" name="artikel_id" value="<?= $id ?>">
+            <input type="hidden" name="parent_id" value="0">
+            <textarea name="komentar" class="form-control mb-3" rows="4" required></textarea>
             <button type="submit" class="btn btn-success">Kirim</button>
-            </button>
           </form>
         </div>
       </div>
+    <?php else: ?>
+      <p class="text-center">Silakan <a href="layanan_mandiri.php">login</a> untuk berkomentar.</p>
+    <?php endif; ?>
+
+    <?php
+    include "komentar.php";
+    echo "<h4>Komentar</h4>";
+    tampilkan_komentar($conn, $id); 
+    
+    ?>
+      <!-- <footer>
+          <p>&copy; 2025 Desa Pamayahan</p>
+      </footer> -->
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-<footer>
-    <p>&copy; 2025 Desa Pamayahan</p>
-  </footer>
 </html>

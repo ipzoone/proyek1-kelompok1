@@ -60,3 +60,41 @@ function prevSlide() {
 
 // Auto-slide setiap 5 detik
 setInterval(nextSlide, 5000);
+// Menambahkan event listener pada setiap dropdown button
+const dropdownBtns = document.querySelectorAll(".dropdown-btn");
+
+//Dropdown
+
+document.addEventListener("DOMContentLoaded", function () {
+  // Tangani semua tombol dropdown
+  const dropdownBtns = document.querySelectorAll(".dropdown-btn");
+
+  dropdownBtns.forEach((btn) => {
+    btn.addEventListener("click", function (e) {
+      e.preventDefault(); // Mencegah link '#' melakukan reload
+
+      const dropdown = this.closest(".dropdown");
+      const dropdownContent = dropdown.querySelector(".dropdown-content");
+
+      // Tutup dropdown lain terlebih dahulu
+      document.querySelectorAll(".dropdown-content").forEach((dc) => {
+        if (dc !== dropdownContent) {
+          dc.style.display = "none";
+        }
+      });
+
+      // Toggle tampilan dropdown yang diklik
+      dropdownContent.style.display =
+        dropdownContent.style.display === "block" ? "none" : "block";
+
+      e.stopPropagation(); // Mencegah bubbling ke document
+    });
+  });
+
+  // Tutup dropdown jika klik di luar
+  document.addEventListener("click", function () {
+    document.querySelectorAll(".dropdown-content").forEach((dc) => {
+      dc.style.display = "none";
+    });
+  });
+});

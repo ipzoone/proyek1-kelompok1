@@ -4,10 +4,11 @@ section {
   border-radius: 8px;
   margin: 20px 0;
 }
-h1 {
+
+.judul {
   margin-top: 10px;
 }
 .nav-kanan a {
   text-decoration: none;
-  background-color: green;
+  /* background-color: green; */
 }

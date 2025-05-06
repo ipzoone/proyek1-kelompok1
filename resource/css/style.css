@@ -89,7 +89,7 @@ nav a {
   height: auto;
 }
 .nav-kanan {
-  margin-left: 400px;
+  margin-left: 350px;
   display: flex;
 }
 .login-btn a {
@@ -132,7 +132,7 @@ nav a {
 }
 
 .pojok-kanan {
-  margin-left: 250px;
+  margin-left: 200px;
   display: flex;
 }
 
@@ -156,13 +156,13 @@ nav a:hover {
 .profil-desa {
   display: flex;
   align-items: center;
-  width: 120px;
+  width: 150px;
 }
 
 .program-desa {
   display: flex;
   align-items: center;
-  width: 140px;
+  width: 170px;
 }
 .dropdown {
   position: relative;
@@ -187,9 +187,6 @@ nav a:hover {
   z-index: 100;
 }
 
-.dropdown:hover .dropdown-content {
-  display: block;
-}
 .dropdown-content a {
   color: #333;
   padding: 10px;
@@ -201,6 +198,16 @@ nav a:hover {
 .dropdown-content a:hover {
   background: #f5f5f5;
 }
+.dropdown-btn i {
+  margin-left: 5px;
+  transition: transform 0.3s ease;
+}
+
+/* Kalau ingin animasi ikon berputar saat aktif */
+.dropdown .dropdown-content.show + .dropdown-btn i {
+  transform: rotate(180deg);
+}
+
 /*ARTIKEL*/
 .artikel-terkini {
   background: white;
@@ -316,28 +323,71 @@ nav a:hover {
 
 /* AGENDA */
 .agenda {
-  background: white;
-  padding: 20px;
-  margin-top: 20px;
-  border-radius: 5px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  max-width: 1500px;
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 25px 30px;
+  width: 100%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
 }
+
 .agenda h3 {
-  background-color: #787bc7;
-  font-size: 20px;
-  font-weight: bold;
-  padding: 20px;
-  color: white;
-  margin: 0 0 10px 0;
-  text-align: center;
-}
-.agenda li {
-  list-style: none;
-  margin: 0 0 10px 0;
+  font-size: 1.5em;
+  margin-bottom: 20px;
+  color: #2c3e50;
   display: flex;
+  align-items: center;
   gap: 10px;
+  border-bottom: 2px solid #787bc7;
+  padding-bottom: 10px;
 }
+
+.list-agenda {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.list-agenda li {
+  padding: 15px 0;
+  border-bottom: 1px dashed #ccc;
+  font-size: 1em;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  position: relative;
+}
+
+.list-agenda li:last-child {
+  border-bottom: none;
+}
+
+.list-agenda li i.bi-chevron-right {
+  color: #787bc7;
+  font-size: 1.2em;
+  margin-top: 4px;
+}
+
+.list-agenda li strong {
+  color: #2c3e50;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.list-agenda li strong i {
+  margin-right: 5px;
+  color: #787bc7;
+}
+
+.list-agenda li span {
+  color: #555;
+  line-height: 1.5;
+}
+
+/*  */
+
 /* Bagian kanan */
 .content-right {
   flex: 1;
@@ -349,14 +399,14 @@ nav a:hover {
 .profil-kades {
   background: white;
   padding: 20px;
-  margin: 20px 0;
   border-radius: 5px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   max-width: 1200px;
+  height: 435px;
 }
 .profil-kades h3 {
   margin: 0 0 10px 0;
-  font-size: 15px;
+  font-size: 20px;
   text-align: center;
   padding: 20px;
   color: white;
@@ -376,32 +426,67 @@ nav a:hover {
   align-items: center;
   justify-content: center;
   display: flex;
-  margin-top: 20px;
-  font-size: 18px;
+  margin-top: 25px;
+  font-size: 20px;
   font-weight: bold;
 }
 
 /* Kotak pencarian */
-.search-container {
+/* .search-container {
   background: #f8f3fc;
   padding: 20px;
   border-radius: 10px;
-}
+} */
 
 /* Peta */
 .peta-container {
   background: #f8f3fc;
-  padding: 20px;
+  padding: 30px;
   border-radius: 10px;
   text-align: center;
+  height: 400px;
+  /* margin-bottom: 50px; */
 }
-
+.peta-container h2 {
+  background-color: #787bc7;
+  color: #ffffff;
+  padding: 10px;
+  font-size: 20px;
+}
+.peta-container p {
+  font-family: "Arial", sans-serif;
+  margin-top: 10px;
+  color: #333333d6;
+}
 .peta-container iframe {
   width: 100%;
   height: 200px;
-  border-radius: 10px;
+  border-radius: 15px;
 }
 
+/* tombol slide artikel */
+.pagination .page-item.active .page-link {
+  background-color: #787bc7; /* Warna tombol aktif */
+  border-color: #007bff;
+  color: white;
+}
+
+.pagination .page-link:hover {
+  background-color: #787bc7; /* Warna saat hover */
+  color: white;
+}
+
+.pagination .page-link {
+  background-color: #f8f9fa; /* Warna default tombol */
+  color: #343a40;
+}
+
+/* Agenda */
+.status {
+  background-color: #29e032dd;
+  padding: 7px;
+  border-radius: 5px;
+}
 /*FOOTER*/
 footer {
   background-color: #787bc7;
@@ -506,7 +591,7 @@ footer {
     order: 0;
   }
 
-  /*CONTENT KIRI*/
+  /* CONTENT KIRI*/
   /* .carousel {
     position: relative;
     width: 80%;
@@ -595,10 +680,10 @@ footer {
   }
   .profil-kades {
     background: white;
-    padding: 20px;
+    padding: 30px;
     border-radius: 5px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    height: 230px;
+    height: 300px;
     width: 300px;
     justify-content: center;
     align-items: center;
@@ -613,12 +698,13 @@ footer {
     /* align-items: center; */
     border-radius: 5px;
   }
+
   .profil-kades p {
     margin: 0 0 10px 0;
     justify-content: center;
     margin-top: 10px;
     display: flex;
-    font-size: 15px;
+    font-size: 20px;
     font-weight: bold;
   }
   /*PETA*/
@@ -626,7 +712,7 @@ footer {
     background: #f8f3fc;
     padding: 20px;
     border-radius: 10px;
-    height: 230px;
+    height: 200px;
     width: 300px;
     text-align: center;
     position: relative;

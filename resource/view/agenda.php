@@ -1,8 +1,8 @@
 <?php
-include "db.php";  // Menghubungkan ke database
+include "db.php"; 
+session_start();
 
-// Query untuk mengambil data agenda
-$result = $conn->query("SELECT * FROM agenda ORDER BY tanggal ASC"); // Menampilkan agenda berdasarkan tanggal secara urut
+$result = $conn->query("SELECT * FROM agenda ORDER BY tanggal ASC"); 
 
 ?>
 <!DOCTYPE html>
@@ -13,7 +13,8 @@ $result = $conn->query("SELECT * FROM agenda ORDER BY tanggal ASC"); // Menampil
     <link rel="stylesheet" href="../css/style.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-    <title>Document</title>
+    <script src="../js/script.js"></script>
+    <title>Agenda</title>
 </head>
 <body>
 <div class="bg-head">
@@ -39,61 +40,85 @@ $result = $conn->query("SELECT * FROM agenda ORDER BY tanggal ASC"); // Menampil
           </div>
           <div class="dropdown">
             <div class="profil-desa">
-              <a href="#" class="dropdown-btn">Profil Desa</a>
+              <a href="#" class="dropdown-btn">Profil Desa <i class="bi bi-caret-down-fill"></i></a>
             </div>
             <div class="dropdown-content">
-              <a href="sejarahdesa.html">Sejarah Desa</a>
-              <a href="#">Jumlah Penduduk</a>
-              <a href="#">Fasilitas Desa</a>
+              <a href="sejarahdesa.php">Sejarah Desa</a>
+              <a href="jumlahpenduduk.php">Jumlah Penduduk</a>
+              <a href="fasilitasdesa.php">Fasilitas Desa</a>
             </div>
           </div>
           <div class="dropdown">
             <div class="program-desa">
-              <a href="#" class="dropdown-btn">Program Desa</a>
+              <a href="#" class="dropdown-btn">Program Desa <i class="bi bi-caret-down-fill"></i></a>
             </div>
             <div class="dropdown-content">
-              <a href="#">Program Pertanian</a>
-              <a href="#">Program Pendidikan</a>
-              <a href="#">Program Kesehatan</a>
+              <a href="program-pertanian.php">Program Pertanian</a>
+              <a href="program-pendidikan.php">Program Pendidikan</a>
+              <a href="program-kesehatan.php">Program Kesehatan</a>
+             </div>
             </div>
-          </div>
           <a href="artikel.php">Artikel</a>
           <a href="agenda.php">Agenda</a>
         </div>
         <div class="nav-kanan">
-          <?php if (isset($_SESSION['is_logged_in'])): ?>
-            <span class="text-white me-2"><img src="https://img.icons8.com/?size=100&id=85356&format=png&color=FFFFFF" class="img-fluid" style="max-width: 30px; margin: 2px;">   <?= htmlspecialchars($_SESSION['nama']) ?>
-          <img src="https://img.icons8.com/?size=100&id=85913&format=png&color=40C057"  class="img-fluid" style="max-width: 30px; width: 10px; height: 10px; margin-left:5px; margin-top: 10px;"></span>
-           <div class="logout-btn">
-             <a href="logout.php">Logout</a>
-            </div>
-          <?php else: ?>
-            <div class="login-btn">
-              <a href="layanan_mandiri.php">Layanan Mandiri</a>
-              <a href="admin.php">Login Admin</a>
-            </div>
-          <?php endif; ?>
+      <?php if (isset($_SESSION['is_logged_in'])): ?>
+        <div class="pojok-kanan">
+          <div class="dropdown">
+            <a class="nav-link dropdown-toggle d-flex align-items-center text-white text-decoration-none" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="bi bi-person-circle me-2" style="font-size: 1.5rem;"></i>
+              <?= htmlspecialchars($_SESSION['nama']) ?>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+              <li><a class="dropdown-item" href="#">Profil</a></li>
+              <li><a class="dropdown-item" href="setting.php">Pengaturan</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="logout.php">Logout</a></li>
+            </ul>
+          </div>
+        </div>
+     <?php else: ?>
+        <div class="login-btn">
+          <a href="layanan_mandiri.php">Layanan Mandiri</a>
+          <a href="admin.php">Login Admin</a>
+       </div>
+     <?php endif; ?>
         </div>
       </div>
     </nav>
   </header>
+
   <div class="agenda">
-    <h3>Agenda</h3>
-    <ul>
+    <h3><i class="bi bi-calendar-event-fill"></i> AGENDA</h3>
+    <ul class="list-agenda">
         <?php
-        // Loop untuk menampilkan semua agenda
         while ($row = $result->fetch_assoc()):
-            $tanggal = date('d F Y', strtotime($row['tanggal']));  // Format tanggal
-            $judul = htmlspecialchars($row['judul']);  // Menghindari XSS
+            $tanggal = date('d F Y', strtotime($row['tanggal']));
+            $jam = date('H:i', strtotime($row['waktu'])); 
+            $judul = htmlspecialchars($row['judul']);
+            $status = htmlspecialchars($row['status']);
         ?>
-            <li><?= $tanggal ?> - <?= $judul ?></li>
+            <li>
+                <i class="bi bi-chevron-right"></i>
+                <strong>
+                    <i class="bi bi-calendar2-week"></i> <?= $tanggal ?>
+                    <br>
+                    <i class="bi bi-clock"></i> <?= $jam ?>
+                </strong><br>
+                <span><?= $judul ?></span>
+                <br>
+                <span class="status"><?= $status ?></span>
+            </li>
         <?php endwhile; ?>
     </ul>
 </div>
+
+
     
-</body>
 <footer>
         <p>&copy; 2025 Desa Pamayahan</p>
 </footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></scrip>
+</body>
 </html>
 

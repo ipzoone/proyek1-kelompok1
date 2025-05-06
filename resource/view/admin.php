@@ -17,6 +17,7 @@ if (isset($_SESSION['error'])) {
     <link rel="stylesheet" href="../css/style.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <script src="../js/script.js"></script>
   </head>
   <body>
   <div class="bg-head">
@@ -42,40 +43,49 @@ if (isset($_SESSION['error'])) {
           </div>
           <div class="dropdown">
             <div class="profil-desa">
-              <a href="#" class="dropdown-btn">Profil Desa</a>
+              <a href="#" class="dropdown-btn">Profil Desa <i class="bi bi-caret-down-fill"></i></a>
             </div>
             <div class="dropdown-content">
-              <a href="sejarahdesa.html">Sejarah Desa</a>
-              <a href="#">Jumlah Penduduk</a>
-              <a href="#">Fasilitas Desa</a>
+              <a href="sejarahdesa.php">Sejarah Desa</a>
+              <a href="jumlahpenduduk.php">Jumlah Penduduk</a>
+              <a href="fasilitasdesa.php">Fasilitas Desa</a>
             </div>
           </div>
           <div class="dropdown">
             <div class="program-desa">
-              <a href="#" class="dropdown-btn">Program Desa</a>
+              <a href="#" class="dropdown-btn">Program Desa <i class="bi bi-caret-down-fill"></i></a>
             </div>
             <div class="dropdown-content">
-              <a href="#">Program Pertanian</a>
-              <a href="#">Program Pendidikan</a>
-              <a href="#">Program Kesehatan</a>
+              <a href="program-pertanian.php">Program Pertanian</a>
+              <a href="program-pendidikan.php">Program Pendidikan</a>
+              <a href="program-kesehatan.php">Program Kesehatan</a>
+             </div>
             </div>
-          </div>
           <a href="artikel.php">Artikel</a>
           <a href="agenda.php">Agenda</a>
         </div>
         <div class="nav-kanan">
-          <?php if (isset($_SESSION['is_logged_in'])): ?>
-            <span class="text-white me-2"><img src="https://img.icons8.com/?size=100&id=85356&format=png&color=FFFFFF" class="img-fluid" style="max-width: 30px; margin: 2px;">   <?= htmlspecialchars($_SESSION['nama']) ?>
-          <img src="https://img.icons8.com/?size=100&id=85913&format=png&color=40C057"  class="img-fluid" style="max-width: 30px; width: 10px; height: 10px; margin-left:5px; margin-top: 10px;"></span>
-           <div class="logout-btn">
-             <a href="logout.php">Logout</a>
-            </div>
-          <?php else: ?>
-            <div class="login-btn">
-              <a href="layanan_mandiri.php">Layanan Mandiri</a>
-              <a href="admin.php">Login Admin</a>
-            </div>
-          <?php endif; ?>
+      <?php if (isset($_SESSION['is_logged_in'])): ?>
+        <div class="pojok-kanan">
+          <div class="dropdown">
+            <a class="nav-link dropdown-toggle d-flex align-items-center text-white text-decoration-none" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="bi bi-person-circle me-2" style="font-size: 1.5rem;"></i>
+              <?= htmlspecialchars($_SESSION['nama']) ?>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+              <li><a class="dropdown-item" href="#">Profil</a></li>
+              <li><a class="dropdown-item" href="setting.php">Pengaturan</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="logout.php">Logout</a></li>
+            </ul>
+          </div>
+        </div>
+     <?php else: ?>
+        <div class="login-btn">
+          <a href="layanan_mandiri.php">Layanan Mandiri</a>
+          <a href="admin.php">Login Admin</a>
+       </div>
+     <?php endif; ?>
         </div>
       </div>
     </nav>
@@ -136,6 +146,5 @@ if (isset($_SESSION['error'])) {
     passwordInput.type = this.checked ? "text" : "password";
     });
     </script>
-
   </body>
 </html>
