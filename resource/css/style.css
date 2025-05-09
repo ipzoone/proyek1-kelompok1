@@ -18,7 +18,6 @@ header {
   align-items: center;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
 }
-
 /*header*/
 .bg-head {
   background-image: url(../img/gambar1.jpg);
@@ -203,11 +202,6 @@ nav a:hover {
   transition: transform 0.3s ease;
 }
 
-/* Kalau ingin animasi ikon berputar saat aktif */
-.dropdown .dropdown-content.show + .dropdown-btn i {
-  transform: rotate(180deg);
-}
-
 /*ARTIKEL*/
 .artikel-terkini {
   background: white;
@@ -323,13 +317,11 @@ nav a:hover {
 
 /* AGENDA */
 .agenda {
-  background: #ffffff;
-  border: 1px solid #e0e0e0;
+  background: #f8f3fc;
+  padding: 20px;
   border-radius: 10px;
-  padding: 25px 30px;
-  width: 100%;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-  box-sizing: border-box;
+  margin: 10px 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
 .agenda h3 {
@@ -341,6 +333,31 @@ nav a:hover {
   gap: 10px;
   border-bottom: 2px solid #787bc7;
   padding-bottom: 10px;
+}
+.agenda-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-left: 0;
+  margin: 10px;
+  border-bottom: 1px solid #373636;
+}
+
+.status {
+  padding: 7px 10px;
+  border-radius: 5px;
+  color: white;
+  font-size: 0.9rem;
+  min-width: 65px;
+  text-align: center;
+}
+
+.status-aktif {
+  background-color: #28a745; /* hijau */
+}
+
+.status-selesai {
+  background-color: #007bff; /* biru */
 }
 
 .list-agenda {
@@ -386,8 +403,6 @@ nav a:hover {
   line-height: 1.5;
 }
 
-/*  */
-
 /* Bagian kanan */
 .content-right {
   flex: 1;
@@ -402,7 +417,7 @@ nav a:hover {
   border-radius: 5px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   max-width: 1200px;
-  height: 435px;
+  height: 440px;
 }
 .profil-kades h3 {
   margin: 0 0 10px 0;
@@ -481,13 +496,6 @@ nav a:hover {
   color: #343a40;
 }
 
-/* Agenda */
-.status {
-  background-color: #29e032dd;
-  padding: 7px;
-  border-radius: 5px;
-}
-/*FOOTER*/
 footer {
   background-color: #787bc7;
   color: white;

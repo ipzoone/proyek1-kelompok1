@@ -9,6 +9,7 @@ session_start();
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Jumlah Penduduk - Desa Pamayahan</title>
   <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/profildesa.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -85,7 +86,7 @@ session_start();
       </div>
     </nav>
   </header>
-
+ <section>
   <div class="container py-5">
     <div class="row mb-4">
       <div class="col-12 text-center">
@@ -250,10 +251,11 @@ session_start();
       </div>
     </div>
   </div>
+</section>
+<footer>
+  <p>&copy; 2025 Desa Pamayahan</p>
+</footer>
 
-  <footer>
-    <p>&copy; 2025 Desa Pamayahan</p>
-  </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>

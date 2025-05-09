@@ -89,36 +89,34 @@ $result = $conn->query("SELECT * FROM agenda ORDER BY tanggal ASC");
   </header>
 
   <div class="agenda">
-    <h3><i class="bi bi-calendar-event-fill"></i> AGENDA</h3>
-    <ul class="list-agenda">
-        <?php
-        while ($row = $result->fetch_assoc()):
-            $tanggal = date('d F Y', strtotime($row['tanggal']));
-            $jam = date('H:i', strtotime($row['waktu'])); 
-            $judul = htmlspecialchars($row['judul']);
-            $status = htmlspecialchars($row['status']);
-        ?>
-            <li>
-                <i class="bi bi-chevron-right"></i>
-                <strong>
-                    <i class="bi bi-calendar2-week"></i> <?= $tanggal ?>
-                    <br>
-                    <i class="bi bi-clock"></i> <?= $jam ?>
-                </strong><br>
-                <span><?= $judul ?></span>
-                <br>
-                <span class="status"><?= $status ?></span>
-            </li>
-        <?php endwhile; ?>
-    </ul>
-</div>
-
-
+  <h3><i class="bi bi-calendar-event-fill"></i> AGENDA</h3>
+    <?php
+    while ($row = $result->fetch_assoc()):
+      $tanggal = date('d F Y', strtotime($row['tanggal']));
+      $jam = date('H:i', strtotime($row['waktu'])); 
+      $judul = htmlspecialchars($row['judul']);
+      $status = htmlspecialchars($row['status']);
     
+    $statusClass = strtolower($status) === 'aktif' ? 'status-aktif' : 'status-selesai';
+    ?>
+    <li class="agenda-item">
+      <div>
+        <strong>
+          <i class="bi bi-calendar2-week"></i> <?= $tanggal ?><br>&nbsp; 
+          <i class="bi bi-clock"></i> <?= $jam ?>
+        </strong><br>
+        <span><?= $judul ?></span>
+      </div>
+      <span class="status <?= $statusClass ?>"><?= $status ?></span>
+    </li>
+    <?php endwhile; ?>
+  </div>
+
+ 
 <footer>
         <p>&copy; 2025 Desa Pamayahan</p>
 </footer>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></scrip>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
 

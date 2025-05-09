@@ -12,11 +12,11 @@ if (isset($_SESSION['error'])) {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Login Desa Pamayahan</title>
-    <link rel="stylesheet" href="../css/cssadmin.css" />
+    <title>Login Admin - Desa Pamayahan</title>
     <link rel="stylesheet" href="../css/style.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.<min.css" />
     <script src="../js/script.js"></script>
   </head>
   <body>
@@ -41,6 +41,7 @@ if (isset($_SESSION['error'])) {
               <img src="https://img.icons8.com/ios-glyphs/30/FFFFFF/home.png" alt="home" />
             </a>
           </div>
+
           <div class="dropdown">
             <div class="profil-desa">
               <a href="#" class="dropdown-btn">Profil Desa <i class="bi bi-caret-down-fill"></i></a>
@@ -61,6 +62,7 @@ if (isset($_SESSION['error'])) {
               <a href="program-kesehatan.php">Program Kesehatan</a>
              </div>
             </div>
+
           <a href="artikel.php">Artikel</a>
           <a href="agenda.php">Agenda</a>
         </div>
@@ -91,60 +93,109 @@ if (isset($_SESSION['error'])) {
     </nav>
   </header>
 
-    <div class="container-admin">
-      <div class="login-card">
-      <?php if (!empty($error)): ?>
-      <div style="color: red; margin-bottom: 10px; text-align: center;">
-      <?= htmlspecialchars($error); ?>
-      </div>
-      <?php endif; ?>
-
-        <img
-          src="https://1.bp.blogspot.com/-2qXJ0Sm155w/Wg6R6IeIBhI/AAAAAAAAFDc/3CSakAHZ7NEU5X-byzmTFKlIzhobVpkYACLcBGAs/s1600/Indramayu.png"
-          alt="Logo Desa"
-          class="logo"
-        />
-        <h2 class="desa-title">DESA PAMAYAHAN</h2>
-        <p class="alamat">
-          JALAN LOHBENER , KEC. LOHBENER<br />KABUPATEN INDRAMAYU<br />KODE POS
-          45252
-        </p>
-
-        <form action="login_admin.php" method="post">
-          <input
-            name="username"
-            type="text"
-            class="input-field"
-            placeholder="USERNAME"
-          />
-          <input
-            name="password"
-            id="password"
-            type="password"
-            class="input-field"
-            placeholder="PASSWORD"
-          />
-
-          <div class="checkbox-container">
-        <label>
-        <input type="checkbox" id="show-password" /> TAMPILKAN KATA SANDI
-        </label>
-        <a href="register_admin.php" class="forgot">Daftar Admin</a>
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-6">
+        <div class="card border-0 shadow-lg rounded-4 overflow-hidden animate__animated animate__fadeIn">
+          <div class="row g-0">
+            <div class="col-md-5 bg-danger d-none d-md-block">
+              <div class="d-flex flex-column h-100 p-4 text-white justify-content-between">
+                <div>
+                  <img src="https://1.bp.blogspot.com/-2qXJ0Sm155w/Wg6R6IeIBhI/AAAAAAAAFDc/3CSakAHZ7NEU5X-byzmTFKlIzhobVpkYACLcBGAs/s1600/Indramayu.png" alt="Logo Desa Pamayahan" class="img-fluid mb-3" style="max-width: 80px;">
+                  <h4 class="fw-bold">Admin Panel</h4>
+                </div>
+                <div class="mt-auto">
+                  <div class="d-flex align-items-center mb-3">
+                    <i class="bi bi-check-circle-fill me-2"></i>
+                    <span>Kelola Artikel</span>
+                  </div>
+                  <div class="d-flex align-items-center mb-3">
+                    <i class="bi bi-check-circle-fill me-2"></i>
+                    <span>Kelola Agenda</span>
+                  </div>
+                  <div class="d-flex align-items-center mb-3">
+                    <i class="bi bi-check-circle-fill me-2"></i>
+                    <span>Kelola Pengguna</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-7">
+              <div class="card-body p-4 p-lg-5">
+                <div class="text-center mb-4">
+                  <div class="bg-danger text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                    <i class="bi bi-shield-lock-fill" style="font-size: 1.8rem;"></i>
+                  </div>
+                  <h3 class="fw-bold">Login Admin</h3>
+                  <p class="text-muted">Masuk ke panel admin untuk mengelola website desa</p>
+                </div>
+                
+                <?php if (!empty($error)): ?>
+                  <div class="alert alert-danger mb-4">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                    <?= htmlspecialchars($error); ?>
+                  </div>
+                <?php endif; ?>
+                
+                <form action="login_admin.php" method="post">
+                  <div class="mb-4">
+                    <label for="username" class="form-label fw-semibold">Username</label>
+                    <div class="input-group">
+                      <span class="input-group-text bg-light border-end-0">
+                        <i class="bi bi-person"></i>
+                      </span>
+                      <input type="text" class="form-control border-start-0 bg-light" id="username" name="username" placeholder="Username" required>
+                    </div>
+                  </div>
+                  
+                  <div class="mb-4">
+                    <label for="password" class="form-label fw-semibold">Password</label>
+                    <div class="input-group">
+                      <span class="input-group-text bg-light border-end-0">
+                        <i class="bi bi-lock"></i>
+                      </span>
+                      <input type="password" class="form-control border-start-0 bg-light" id="password" name="password" placeholder="Password" required>
+                    </div>
+                  </div>
+                  
+                  <div class="mb-4 form-check">
+                    <input type="checkbox" class="form-check-input" id="show-password">
+                    <label class="form-check-label small" for="show-password">Tampilkan password</label>
+                  </div>
+                  
+                  <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-danger py-3 fw-semibold">MASUK</button>
+                  </div>
+                </form>
+                
+                <div class="text-center mt-4">
+                  <!-- <p class="text-muted small">Belum memiliki akun? <a href="register_admin.php" class="text-decoration-none text-danger">Daftar Admin</a></p> -->
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="login-btn">
-          <button type="submit" class="login-btn">MASUK</button>
+        
+        <div class="text-center mt-4">
+          <div class="d-flex justify-content-center align-items-center">
+            <i class="bi bi-shield-lock text-danger me-2"></i>
+            <p class="text-muted mb-0 small">Akses admin hanya untuk petugas desa yang berwenang</p>
+          </div>
         </div>
-        </form>
       </div>
     </div>
-    <footer>
+  </div>
+
+  <footer>
     <p>&copy; 2025 Desa Pamayahan</p>
-    </footer>
-    <script>
+  </footer>
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
     document.getElementById("show-password").addEventListener("change", function () {
-    const passwordInput = document.getElementById("password");
-    passwordInput.type = this.checked ? "text" : "password";
+      const passwordInput = document.getElementById("password");
+      passwordInput.type = this.checked ? "text" : "password";
     });
-    </script>
+  </script>
   </body>
 </html>

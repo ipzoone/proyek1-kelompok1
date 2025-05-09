@@ -1,12 +1,21 @@
 section {
-  background-color: #f0f0f0;
+  background-color: #f8f3fc;
   padding: 25px;
   border-radius: 8px;
-  margin: 20px 0;
+  /* margin: 20px 0; */
 }
 
+.container h3 {
+  font-size: 30px;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
 .judul {
-  margin-top: 10px;
+  margin-top: 20px;
+  justify-content: center;
+  display: flex;
+  align-items: center;
 }
 .nav-kanan a {
   text-decoration: none;

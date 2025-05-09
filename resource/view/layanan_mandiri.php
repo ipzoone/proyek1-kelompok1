@@ -7,11 +7,11 @@ include "db.php";
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Layanan Mandiri</title>
-    <link rel="stylesheet" href="../css/cssmandiri.css" />
+    <title>Layanan Mandiri - Desa Pamayahan</title>
     <link rel="stylesheet" href="../css/style.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <script src="../js/script.js"></script>
   </head>
   <body>
@@ -36,6 +36,7 @@ include "db.php";
               <img src="https://img.icons8.com/ios-glyphs/30/FFFFFF/home.png" alt="home" />
             </a>
           </div>
+
           <div class="dropdown">
             <div class="profil-desa">
               <a href="#" class="dropdown-btn">Profil Desa <i class="bi bi-caret-down-fill"></i></a>
@@ -56,6 +57,7 @@ include "db.php";
               <a href="program-kesehatan.php">Program Kesehatan</a>
              </div>
             </div>
+
           <a href="artikel.php">Artikel</a>
           <a href="agenda.php">Agenda</a>
         </div>
@@ -86,43 +88,117 @@ include "db.php";
     </nav>
   </header>
 
-    <div class="container-layanan">
-      <div class="card">
-    <?php if (isset($_SESSION["flash_message"])) {
-        echo $_SESSION["flash_message"];
-        unset($_SESSION["flash_message"]);
-    } ?>
-        <div class="card-header">
-          <div class="title">
-            <i class="bi bi-person icon"></i>
-            LAYANAN MANDIRI
-          </div>
-
-          <p class="subtitle">
-            SILAHKAN DATANG / HUBUNGI PERANGKAT DESA UNTUK <br />
-            MENDAPATKAN KODE PIN ANDA
-          </p>
-        </div>
-        <div class="card-body">
-          <form action="login_mandiri.php" method="post">
-            <label for="nama">USERNAME</label>
-            <input type="text" id="nama" name="nama" required />
-            <label for="pin">PIN</label>
-            <input type="password" id="pin" name="pin" required />
-            <div class="button-group">
-              <button type="submit">MASUK</button>
-              <a href="#" class="forgot-pin">LUPA PIN?</a>
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-6">
+        <?php if (isset($_SESSION["flash_message"])) {
+            echo $_SESSION["flash_message"];
+            unset($_SESSION["flash_message"]);
+        } ?>
+        
+        <div class="card border-0 shadow-lg rounded-4 overflow-hidden animate__animated animate__fadeIn">
+          <div class="row g-0">
+            <div class="col-md-5 bg-primary d-none d-md-block">
+              <div class="d-flex flex-column h-100 p-4 text-white justify-content-between">
+                <div>
+                  <img src="https://1.bp.blogspot.com/-2qXJ0Sm155w/Wg6R6IeIBhI/AAAAAAAAFDc/3CSakAHZ7NEU5X-byzmTFKlIzhobVpkYACLcBGAs/s1600/Indramayu.png" alt="Logo Desa Pamayahan" class="img-fluid mb-3" style="max-width: 80px;">
+                  <h4 class="fw-bold">Layanan Mandiri</h4>
+                  <p class="opacity-75">Akses layanan desa secara online untuk mempermudah urusan administrasi Anda</p>
+                </div>
+                <div class="mt-auto">
+                  <div class="d-flex align-items-center mb-3">
+                    <i class="bi bi-check-circle-fill me-2"></i>
+                    <span>Pengajuan Surat</span>
+                  </div>
+                  <div class="d-flex align-items-center mb-3">
+                    <i class="bi bi-check-circle-fill me-2"></i>
+                    <span>Cek Status Pengajuan</span>
+                  </div>
+                  <div class="d-flex align-items-center">
+                    <i class="bi bi-check-circle-fill me-2"></i>
+                    <span>Informasi Layanan Desa</span>
+                  </div>
+                </div>
+              </div>
             </div>
-          </form>
-          <?php if (!empty($_GET['error'])): ?>
-            <p style="color:red; margin-top: 10px;"><?= htmlspecialchars($_GET['error']) ?></p>
-          <?php endif; ?>
+            <div class="col-md-7">
+              <div class="card-body p-4 p-lg-5">
+                <div class="text-center mb-4">
+                  <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                    <i class="bi bi-person-fill" style="font-size: 1.8rem;"></i>
+                  </div>
+                  <h3 class="fw-bold">Masuk Layanan Mandiri</h3>
+                  <p class="text-muted">Silahkan masukkan username dan PIN Anda</p>
+                </div>
+                
+                <form action="login_mandiri.php" method="post">
+                  <div class="mb-4">
+                    <label for="nama" class="form-label fw-semibold">Username</label>
+                    <div class="input-group">
+                      <span class="input-group-text bg-light border-end-0">
+                        <i class="bi bi-person"></i>
+                      </span>
+                      <input type="text" class="form-control border-start-0 bg-light" id="nama" name="nama" placeholder="Masukkan username" required>
+                    </div>
+                  </div>
+                  
+                  <div class="mb-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <label for="pin" class="form-label fw-semibold">PIN</label>
+                    </div>
+                    <div class="input-group">
+                      <span class="input-group-text bg-light border-end-0">
+                        <i class="bi bi-lock"></i>
+                      </span>
+                      <input type="password" class="form-control border-start-0 bg-light" id="pin" name="pin" placeholder="Masukkan PIN" required>
+                    </div>
+                  </div>
+                  
+                  <div class="mb-4 form-check">
+                    <input type="checkbox" class="form-check-input" id="show-password">
+                    <label class="form-check-label small" for="show-password">Tampilkan password</label>
+                  </div>
+                
+                  <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary py-3 fw-semibold">MASUK</button>
+                  </div>
+                </form>
+                
+                <?php if (!empty($_GET['error'])): ?>
+                  <div class="alert alert-danger mt-3">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                    <?= htmlspecialchars($_GET['error']) ?>
+                  </div>
+                <?php endif; ?>
+                
+                <div class="text-center mt-4">
+                  <p class="text-muted small">Belum memiliki akun? Silahkan datang ke kantor desa untuk membuat akun anda</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="text-center mt-4">
+          <div class="d-flex justify-content-center align-items-center">
+            <i class="bi bi-info-circle text-primary me-2"></i>
+            <p class="text-muted mb-0 small">Untuk informasi lebih lanjut, silahkan hubungi kantor desa di (0234) 123456</p>
+          </div>
         </div>
       </div>
     </div>
-    <footer>
+  </div>
+
+  <footer>
     <p>&copy; 2025 Desa Pamayahan</p>
-    </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </footer>
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.getElementById("show-password").addEventListener("change", function () {
+      const passwordInput = document.getElementById("pin");
+      passwordInput.type = this.checked ? "text" : "pin";
+    });
+  </script>
   </body>
 </html>

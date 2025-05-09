@@ -17,16 +17,25 @@ $result = $conn->query("SELECT * FROM artikel ORDER BY dibuat_pada DESC");
   <title>Kelola Artikel</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-  <style>
-    .img-thumbnail {
-        width: 100px;
-        height: auto;
-    }
-  </style>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter&display=swap">
+  <link rel="stylesheet" href="../../css/crud.css">
 </head>
-<body class="bg-light">
-  <div class="container py-5">
-    <h2 class="mb-4">Kelola Artikel</h2>
+<body>
+
+<div class="sidebar">
+    <h2>Dashboard Admin</h2>
+    <a href="dashboard.php"><i class="bi bi-house-door"></i> Dashboard</a>
+    <a href="artikel_crud.php"><i class="bi bi-journal-text"></i> Kelola Artikel</a>
+    <a href="agenda_crud.php"><i class="bi bi-calendar-event"></i> Kelola Agenda</a>
+    <a href="mandiri_crud.php"><i class="bi bi-people"></i> Kelola Pengguna</a>
+    <a href="Setting_admin.php"><i class="bi bi-gear"></i> Setting</a>
+    <a href="../home.php" class="btn btn-danger"><i class="bi bi-box-arrow-left"></i> Logout</a>
+</div>
+
+<div class="main">
+<div class="admin-header">  
+    <h2>Kelola Artikel</h2>
+</div>
     <a href="tambah_artikel.php" class="btn btn-success mb-3"><i class="bi bi-plus-lg"></i> Tambah Artikel</a>
 
     <table class="table table-bordered bg-white">
@@ -51,7 +60,11 @@ $result = $conn->query("SELECT * FROM artikel ORDER BY dibuat_pada DESC");
             <?php endif; ?>
           </td>
           <td><?= htmlspecialchars($row['judul']) ?></td>
-          <td><?= substr(strip_tags($row['isi']), 0, 100) ?>...</td>
+          <td>
+            <span class="truncate-text" title="<?= strip_tags($row['isi']) ?>">
+              <?= htmlspecialchars(mb_strimwidth(strip_tags($row['isi']), 0, 30, '...')) ?>
+            </span>
+          </td>
           <td>
             <a href="edit_artikel.php?id=<?= $row['id'] ?>" class="btn btn-sm btn-warning mb-1">
               <i class="bi bi-pencil-square"></i> Edit
@@ -64,8 +77,7 @@ $result = $conn->query("SELECT * FROM artikel ORDER BY dibuat_pada DESC");
         <?php endwhile; ?>
       </tbody>
     </table>
+</div>
 
-    <a href="dashboard.php" class="btn btn-danger mt-3"><i class="bi bi-box-arrow-left"></i> Keluar</a>
-  </div>
 </body>
 </html>

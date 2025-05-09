@@ -2,7 +2,7 @@
 include "db.php";
 session_start();
 
-$result_agenda = $conn->query("SELECT * FROM agenda ORDER BY tanggal ASC");
+$result_agenda = $conn->query("SELECT * FROM agenda ORDER BY tanggal ASC LIMIT 4");
 $username = $_SESSION['username'] ?? null;
 
 $limit = 3; 
@@ -89,7 +89,7 @@ if (isset($_SESSION['flash_message'])) {
               <?= htmlspecialchars($_SESSION['nama']) ?>
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-              <li><a class="dropdown-item" href="#">Profil</a></li>
+              <li><a class="dropdown-item" href="profil.php">Profil</a></li>
               <li><a class="dropdown-item" href="setting.php">Pengaturan</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="logout.php">Logout</a></li>

@@ -1,6 +1,4 @@
 <?php
-// komentar.php
-// Hanya definisi fungsi, tidak ada output langsung
 
 if (! function_exists('tampilkan_komentar')) {
     function tampilkan_komentar($conn, $artikel_id, $parent_id = 0, $indent = 0) {

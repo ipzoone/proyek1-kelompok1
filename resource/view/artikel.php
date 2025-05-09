@@ -11,6 +11,7 @@ $result = $conn->query($query);
   <meta charset="UTF-8">
   <title>Artikel</title>
   <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/profildesa.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
   <script src="../js/script.js"></script>
@@ -87,9 +88,11 @@ $result = $conn->query($query);
     </nav>
   </header>
 
-  <div class="container py-5">
-  <h2 class="mb-4">Semua Artikel</h2>
-  <?php while ($row = $result->fetch_assoc()): ?>
+  <section>
+
+    <div class="container py-5">
+      <h3>SEMUA ARTIKEL</h3>
+      <?php while ($row = $result->fetch_assoc()): ?>
     <div class="card mb-4 shadow-sm">
       <div class="row g-0">
         <div class="col-md-4">
@@ -121,8 +124,9 @@ $result = $conn->query($query);
         </div>
       </div>
     </div>
-  <?php endwhile; ?>
-</div>
+    <?php endwhile; ?>
+  </div>
+</section>
 
 <footer>
     <p>&copy; 2025 Desa Pamayahan</p>
