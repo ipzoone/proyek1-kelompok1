@@ -35,10 +35,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Toggle input type between 'password' and 'text'
             if (pinField.type === "password") {
                 pinField.type = "text";
-                pinToggle.src = "https://img.icons8.com/ios-filled/30/000000/visible.png"; // Ukuran mata lebih kecil
+                pinToggle.src = "https://img.icons8.com/ios-filled/30/000000/visible.png"; 
             } else {
                 pinField.type = "password";
-                pinToggle.src = "https://img.icons8.com/ios-filled/30/000000/invisible.png"; // Ukuran mata lebih kecil
+                pinToggle.src = "https://img.icons8.com/ios-filled/30/000000/invisible.png"; 
             }
         }
     </script>

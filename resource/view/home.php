@@ -1,6 +1,6 @@
 <?php
-include "db.php";
 session_start();
+include "db.php";
 
 $result_agenda = $conn->query("SELECT * FROM agenda ORDER BY tanggal ASC LIMIT 4");
 $username = $_SESSION['username'] ?? null;
@@ -79,34 +79,28 @@ if (isset($_SESSION['flash_message'])) {
 
           <a href="artikel.php">Artikel</a>
           <a href="agenda.php">Agenda</a>
+            <?php if (isset($_SESSION['is_logged_in'])): ?>
+                        <a href="pengajuan.php">Pengajuan</a>
+                        <a href="pelaporan.php" class="active">Pelaporan</a>
+                        <a href="dashboard_user.php">Dashboard</a>
+            <?php endif; ?>
         </div>
-        <div class="nav-kanan">
-      <?php if (isset($_SESSION['is_logged_in'])): ?>
-        <div class="pojok-kanan">
-          <div class="dropdown">
-            <a class="nav-link dropdown-toggle d-flex align-items-center text-white text-decoration-none" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="bi bi-person-circle me-2" style="font-size: 1.5rem;"></i>
-              <?= htmlspecialchars($_SESSION['nama']) ?>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-              <li><a class="dropdown-item" href="profil.php">Profil</a></li>
-              <li><a class="dropdown-item" href="setting.php">Pengaturan</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="logout.php">Logout</a></li>
-            </ul>
+
+          <div class="nav-kanan">
+            <?php if (!isset($_SESSION['is_logged_in'])): ?>
+              <div class="login-btn">
+                <a href="layanan_mandiri.php">Layanan Mandiri</a>
+                <a href="admin.php">Login Admin</a>
+              </div>
+            <?php endif; ?>
           </div>
-        </div>
-     <?php else: ?>
-        <div class="login-btn">
-          <a href="layanan_mandiri.php">Layanan Mandiri</a>
-          <a href="admin.php">Login Admin</a>
-       </div>
-     <?php endif; ?>
         </div>
       </div>
     </nav>
   </header>
 
+
+<!-- SLIDE CONTENT -->
   <div class="content-wrapper">
     <div class="content-left">
       <div class="row">

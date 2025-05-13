@@ -24,17 +24,20 @@ $result = $conn->query("SELECT * FROM artikel ORDER BY dibuat_pada DESC");
 
 <div class="sidebar">
     <h2>Dashboard Admin</h2>
-    <a href="dashboard.php"><i class="bi bi-house-door"></i> Dashboard</a>
-    <a href="artikel_crud.php"><i class="bi bi-journal-text"></i> Kelola Artikel</a>
-    <a href="agenda_crud.php"><i class="bi bi-calendar-event"></i> Kelola Agenda</a>
-    <a href="mandiri_crud.php"><i class="bi bi-people"></i> Kelola Pengguna</a>
-    <a href="Setting_admin.php"><i class="bi bi-gear"></i> Setting</a>
+    <a href="dashboard.php"><i class="bi bi-house-door m-2"></i> Dashboard</a>
+    <a href="artikel_crud.php"><i class="bi bi-journal-text m-2"></i> Kelola Artikel</a>
+    <a href="agenda_crud.php"><i class="bi bi-calendar-event m-2"></i> Kelola Agenda</a>
+    <a href="mandiri_crud.php"><i class="bi bi-people m-2"></i> Kelola Pengguna</a>
+    <a href="pengajuan.php"><i class="bi bi-envelope-fill m-2"></i> Pengajuan Surat</a>
+    <a href="laporan.php"><i class="bi bi-megaphone-fill m-2"></i>Laporan</a>
+    <a href="Setting_admin.php"><i class="bi bi-gear m-2"></i> Setting</a>
     <a href="../home.php" class="btn btn-danger"><i class="bi bi-box-arrow-left"></i> Logout</a>
 </div>
 
+
 <div class="main">
 <div class="admin-header">  
-    <h2>Kelola Artikel</h2>
+    <h2><i class="bi bi-journal-text m-2"></i> Kelola Artikel</h2>
 </div>
     <a href="tambah_artikel.php" class="btn btn-success mb-3"><i class="bi bi-plus-lg"></i> Tambah Artikel</a>
 

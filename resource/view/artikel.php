@@ -17,7 +17,7 @@ $result = $conn->query($query);
   <script src="../js/script.js"></script>
 </head>
 <body class="bg-light">
-<div class="bg-head">
+ <div class="bg-head">
     <img
       src="https://1.bp.blogspot.com/-2qXJ0Sm155w/Wg6R6IeIBhI/AAAAAAAAFDc/3CSakAHZ7NEU5X-byzmTFKlIzhobVpkYACLcBGAs/s1600/Indramayu.png"
       alt="Logo"
@@ -38,6 +38,7 @@ $result = $conn->query($query);
               <img src="https://img.icons8.com/ios-glyphs/30/FFFFFF/home.png" alt="home" />
             </a>
           </div>
+
           <div class="dropdown">
             <div class="profil-desa">
               <a href="#" class="dropdown-btn">Profil Desa <i class="bi bi-caret-down-fill"></i></a>
@@ -58,31 +59,24 @@ $result = $conn->query($query);
               <a href="program-kesehatan.php">Program Kesehatan</a>
              </div>
             </div>
+
           <a href="artikel.php">Artikel</a>
           <a href="agenda.php">Agenda</a>
+            <?php if (isset($_SESSION['is_logged_in'])): ?>
+                        <a href="pengajuan.php">Pengajuan</a>
+                        <a href="pelaporan.php" class="active">Pelaporan</a>
+                        <a href="dashboard_user.php">Dashboard</a>
+            <?php endif; ?>
         </div>
-        <div class="nav-kanan">
-      <?php if (isset($_SESSION['is_logged_in'])): ?>
-        <div class="pojok-kanan">
-          <div class="dropdown">
-            <a class="nav-link dropdown-toggle d-flex align-items-center text-white text-decoration-none" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="bi bi-person-circle me-2" style="font-size: 1.5rem;"></i>
-              <?= htmlspecialchars($_SESSION['nama']) ?>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-              <li><a class="dropdown-item" href="#">Profil</a></li>
-              <li><a class="dropdown-item" href="setting.php">Pengaturan</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="logout.php">Logout</a></li>
-            </ul>
+
+          <div class="nav-kanan">
+            <?php if (!isset($_SESSION['is_logged_in'])): ?>
+              <div class="login-btn">
+                <a href="layanan_mandiri.php">Layanan Mandiri</a>
+                <a href="admin.php">Login Admin</a>
+              </div>
+            <?php endif; ?>
           </div>
-        </div>
-     <?php else: ?>
-        <div class="login-btn">
-          <a href="layanan_mandiri.php">Layanan Mandiri</a>
-          <a href="admin.php">Login Admin</a>
-       </div>
-     <?php endif; ?>
         </div>
       </div>
     </nav>
