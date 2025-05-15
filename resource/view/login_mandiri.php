@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $user = $result->fetch_assoc();
         if(password_verify($pin, $user["pin"])){
             $_SESSION["nama"] = $nama;
-            $_SESSION['user_id'] = $user['id']; 
+            $_SESSION['user_id'] = $user['masyarakat_id']; 
             $_SESSION["is_logged_in"] = true;
             $_SESSION["flash_message"] = "<div class='alert alert-success alert-dismissible fade show' role='alert'>Anda Berhasil login!
             <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>

@@ -1,7 +1,7 @@
 <?php
 include '../db.php';
 $id = $_GET['id'];
-$data = $conn->query("SELECT * FROM masyarakat WHERE id=$id")->fetch_assoc();
+$data = $conn->query("SELECT * FROM masyarakat WHERE masyarakat_id=$id")->fetch_assoc();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nik = $_POST['nik'];
@@ -11,12 +11,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Jika PIN tidak kosong, update termasuk hash PIN
     if (!empty($pin)) {
         $hashed_pin = password_hash($pin, PASSWORD_DEFAULT);
-        $sql = "UPDATE masyarakat SET nik=?, nama=?, pin=? WHERE id=?";
+        $sql = "UPDATE masyarakat SET nik=?, nama=?, pin=? WHERE masyarakat_id=?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("sssi", $nik, $nama, $hashed_pin, $id);
     } else {
         // Jika PIN kosong, update tanpa mengubah PIN
-        $sql = "UPDATE masyarakat SET nik=?, nama=? WHERE id=?";
+        $sql = "UPDATE masyarakat SET nik=?, nama=? WHERE masyarakat_id=?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("ssi", $nik, $nama, $id);
     }

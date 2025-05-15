@@ -15,12 +15,12 @@ $success_message = '';
 $error_message = '';
 
 // Ambil daftar kategori laporan
-$kategori_query = "SELECT * FROM kategori_laporan ORDER BY nama";
+$kategori_query = "SELECT * FROM kategori_laporan ORDER BY nama_laporan";
 $kategori_result = $conn->query($kategori_query);
 
 // Proses pengajuan laporan
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $kategori = $_POST['kategori']; // Gunakan nama kategori, bukan ID
+    $kategori = $_POST['kategori_id'];
     $judul = $_POST['judul'];
     $isi = $_POST['isi'];
     $lokasi = $_POST['lokasi'];
@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Upload foto jika ada
     $foto = '';
     if (isset($_FILES['foto']) && $_FILES['foto']['error'] == 0) {
-        $target_dir = "../img/laporan/";
+        $target_dir = "../img/";
         
         // Pastikan direktori ada
         if (!file_exists($target_dir)) {
@@ -65,14 +65,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Jika tidak ada error, simpan ke database
     if (empty($error_message)) {
         // Simpan ke database menggunakan masyarakat_id
-        // Tambahkan kolom masyarakat_id jika belum ada
         $check_column = $conn->query("SHOW COLUMNS FROM laporan_warga LIKE 'masyarakat_id'");
         if ($check_column->num_rows == 0) {
             $conn->query("ALTER TABLE laporan_warga ADD COLUMN masyarakat_id INT NULL AFTER id");
         }
         
         // Simpan laporan
-        $stmt = $conn->prepare("INSERT INTO laporan_warga (masyarakat_id, kategori, judul, isi, lokasi, foto, status, prioritas) VALUES (?, ?, ?, ?, ?, ?, 'Diterima', 'Sedang')");
+        $stmt = $conn->prepare("INSERT INTO laporan_warga (masyarakat_id, kategori_id, judul, isi, lokasi, foto, status) VALUES (?, ?, ?, ?, ?, ?, 'Diterima')");
         $stmt->bind_param("isssss", $masyarakat_id, $kategori, $judul, $isi, $lokasi, $foto);
         
         if ($stmt->execute()) {
@@ -110,16 +109,15 @@ if (isset($_GET['mark_read']) && $_GET['mark_read'] == 1) {
     $mark_stmt = $conn->prepare($mark_read_query);
     $mark_stmt->bind_param("i", $masyarakat_id);
     $mark_stmt->execute();
-    
-    // Redirect untuk menghindari refresh yang menandai ulang
+  
     header("Location: pelaporan.php");
     exit;
 }
 
 // Ambil riwayat laporan menggunakan masyarakat_id
-$query = "SELECT lw.*, kl.nama as kategori_nama, kl.icon 
+$query = "SELECT lw.*, kl.nama_laporan as kategori_nama, kl.icon 
           FROM laporan_warga lw 
-          LEFT JOIN kategori_laporan kl ON lw.kategori = kl.nama 
+          LEFT JOIN kategori_laporan kl ON lw.kategori_id = kl.kategori_id 
           WHERE lw.masyarakat_id = ? 
           ORDER BY lw.tanggal_laporan DESC";
 $stmt = $conn->prepare($query);
@@ -351,9 +349,6 @@ $result = $stmt->get_result();
               laporan akan diperbarui secara berkala
             </p>
             <p>
-              <i class="bi bi-check-circle-fill text-success me-2"></i> Prioritas
-              laporan ditentukan oleh admin desa
-            </p>
             <p>
               <i class="bi bi-check-circle-fill text-success me-2"></i> Laporan
               yang sudah selesai akan diberi status "Selesai"
@@ -401,15 +396,14 @@ $result = $stmt->get_result();
                 <label for="kategori" class="form-label">
                   <i class="bi bi-tag me-2"></i>Kategori Laporan
                 </label>
-                <select class="form-select" id="kategori" name="kategori" required>
+                <select class="form-select" id="kategori_id" name="kategori_id" required>
                   <option value="" selected disabled>-- Pilih Kategori --</option>
                   <?php while ($kategori = $kategori_result->fetch_assoc()): ?>
-                  <option value="<?= htmlspecialchars($kategori['nama']) ?>">
-                    <?= htmlspecialchars($kategori['nama']) ?> -
-                    <?= htmlspecialchars($kategori['deskripsi']) ?>
+                  <option value="<?= htmlspecialchars($kategori['kategori_id']) ?>">
+                      <?= htmlspecialchars($kategori['nama_laporan']) ?> - <?= htmlspecialchars($kategori['deskripsi']) ?>
                   </option>
                   <?php endwhile; ?>
-                </select>
+              </select>
               </div>
               <div class="mb-3">
                 <label for="judul" class="form-label">
@@ -512,25 +506,13 @@ $result = $stmt->get_result();
                                 break;
                         }
                         
-                        $prioritas_class = '';
-                        switch($row['prioritas']) {
-                            case 'Rendah':
-                                $prioritas_class = 'bg-secondary';
-                                break;
-                            case 'Sedang':
-                                $prioritas_class = 'bg-primary';
-                                break;
-                            case 'Tinggi':
-                                $prioritas_class = 'bg-danger';
-                                break;
-                        }
                         
                         // Cek apakah ada tanggapan admin dan belum dibaca
                         $has_new_response = !empty($row['tanggapan_admin']) && isset($row['is_read']) && $row['is_read'] == 0;
                     ?>
                   <tr>
                     <td><?= $no++ ?></td>
-                    <td><i class="bi <?= htmlspecialchars($row['icon'] ?? 'bi-tag') ?> me-1"></i> <?= htmlspecialchars($row['kategori'] ?? '') ?></td>
+                    <td><i class="bi <?= htmlspecialchars($row['icon'] ?? 'bi-tag') ?> me-1"></i> <?= htmlspecialchars($row['kategori_nama']  ?? '') ?></td>
                     <td><?= htmlspecialchars($row['judul']) ?></td>
                     <td><?= date('d-m-Y', strtotime($row['tanggal_laporan'])) ?></td>
                     <td><span class="badge <?= $status_class ?>"><?= htmlspecialchars($row['status']) ?></span></td>
@@ -552,7 +534,7 @@ $result = $stmt->get_result();
                         <div class="modal-detail-content">
                           <div class="row mb-2">
                             <div class="col-md-4 fw-bold">Kategori:</div>
-                            <div class="col-md-8"><?= htmlspecialchars($row['kategori'] ?? '') ?></div>
+                            <div class="col-md-8"><?= htmlspecialchars($row['kategori_nama'] ?? '') ?></div>
                           </div>
                           <div class="row mb-2">
                             <div class="col-md-4 fw-bold">Judul:</div>
@@ -575,16 +557,14 @@ $result = $stmt->get_result();
                             <div class="col-md-8"><span class="badge <?= $status_class ?>"><?= htmlspecialchars($row['status']) ?></span></div>
                           </div>
                           <div class="row mb-2">
-                            <div class="col-md-4 fw-bold">Prioritas:</div>
-                            <div class="col-md-8"><span class="badge <?= $prioritas_class ?>"><?= htmlspecialchars($row['prioritas']) ?></span></div>
-                          </div>
+                          
                           
                           <?php if (!empty($row['foto'])): ?>
                           <div class="row mb-2">
                             <div class="col-md-4 fw-bold">Foto:</div>
                             <div class="col-md-8">
-                              <a href="../img/laporan/<?= htmlspecialchars($row['foto']) ?>" target="_blank">
-                                <img src="../img/laporan/<?= htmlspecialchars($row['foto']) ?>" alt="Foto Laporan" class="img-fluid img-thumbnail" style="max-height: 150px;" />
+                              <a href="../img/<?= htmlspecialchars($row['foto']) ?>" target="_blank">
+                                <img src="../img/<?= htmlspecialchars($row['foto']) ?>" alt="Foto Laporan" class="img-fluid img-thumbnail" style="max-height: 150px;" />
                               </a>
                             </div>
                           </div>
@@ -609,7 +589,7 @@ $result = $stmt->get_result();
                           
                           <?php if ($row['status'] == 'Selesai'): ?>
                           <div class="alert alert-success mt-3" role="alert">
-                            <i class="bi bi-check-circle-fill me-2"></i> Laporan Anda telah selesai ditangani. Terima kasih atas partisipasi Anda dalam meningkatkan kualitas desa.
+                            <i class="bi bi-check-circle-fill me-2"></i> Laporan Anda telah selesai ditangani. Terima kasih atas laporan nya laporan Anda sangat berarti dalam meningkatkan kualitas desa.
                           </div>
                           <?php elseif ($row['status'] == 'Ditolak'): ?>
                           <div class="alert alert-danger mt-3" role="alert">

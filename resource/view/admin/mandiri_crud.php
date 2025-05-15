@@ -58,8 +58,8 @@ $result = $conn->query("SELECT * FROM masyarakat");
                     <td><?= htmlspecialchars($row['nama']) ?></td>
                     <td><?= htmlspecialchars($row['pin']) ?></td>
                     <td>
-                        <a href="edit_mandiri.php?id=<?= $row['id'] ?>" class="btn btn-sm btn-warning">Edit</a>
-                        <a href="hapus_mandiri.php?id=<?= $row['id'] ?>" onclick="return confirm('Yakin hapus?')" class="btn btn-sm btn-danger">Hapus</a>
+                        <a href="edit_mandiri.php?id=<?= $row['masyarakat_id'] ?>" class="btn btn-sm btn-warning">Edit</a>
+                        <a href="hapus_mandiri.php?id=<?= $row['masyarakat_id'] ?>" onclick="return confirm('Yakin hapus?')" class="btn btn-sm btn-danger">Hapus</a>
                     </td>
                 </tr>
             <?php endwhile; ?>

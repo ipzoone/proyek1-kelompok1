@@ -2,7 +2,6 @@
 include "db.php";
 session_start();
 
-
 // Cek apakah user sudah login
 if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
     header("Location: layanan_mandiri.php");
@@ -12,7 +11,7 @@ if (!isset($_SESSION['is_logged_in']) || $_SESSION['is_logged_in'] !== true) {
 
 // Ambil data pengguna
 $user_id = $_SESSION['user_id'];
-$query = "SELECT * FROM masyarakat WHERE id = ?"; 
+$query = "SELECT * FROM masyarakat WHERE masyarakat_id = ?"; 
 $stmt = $conn->prepare($query);
 $stmt->bind_param('i', $user_id);
 $stmt->execute();
@@ -21,7 +20,7 @@ $user = $result->fetch_assoc();
 
 
 // Ambil data permohonan surat terbaru
-$query_surat = "SELECT ps.*, js.nama AS nama
+$query_surat = "SELECT ps.*, js.nama_surat AS nama_surat
                 FROM pengajuan_surat ps
                 JOIN jenis_surat js ON ps.jenis_surat_id = js.jenis_surat_id
                 WHERE ps.masyarakat_id = ?
@@ -35,7 +34,12 @@ $surat_result = $stmt_surat->get_result();
 
 
 // Ambil data pengaduan terbaru
-$query_pengaduan = "SELECT * FROM laporan_warga WHERE masyarakat_id = ? ORDER BY tanggal_laporan DESC LIMIT 5";
+$query_pengaduan = "SELECT lw.*, kl.nama_laporan AS nama_kategori
+                   FROM laporan_warga lw
+                   LEFT JOIN kategori_laporan kl ON lw.kategori_id = kl.kategori_id
+                   WHERE lw.masyarakat_id = ? 
+                   ORDER BY lw.tanggal_laporan DESC 
+                   LIMIT 5";
 $stmt_pengaduan = $conn->prepare($query_pengaduan);
 $stmt_pengaduan->bind_param('i', $user_id);
 $stmt_pengaduan->execute();
@@ -157,7 +161,7 @@ $pengaduan_result = $stmt_pengaduan->get_result();
                 echo $count;
               ?>
             </h2>
-            <a href="layanan-surat.php" class="btn btn-sm btn-light mt-3"><i class="bi bi-arrow-right me-1"></i> Detail</a>
+            <a href="pengajuan.php" class="btn btn-sm btn-light mt-3"><i class="bi bi-arrow-right me-1"></i>Detail</a>
           </div>
         </div>
       </div>
@@ -169,7 +173,7 @@ $pengaduan_result = $stmt_pengaduan->get_result();
                 <i class="bi bi-megaphone text-danger" style="font-size: 1.5rem;"></i>
               </div>
               <div>
-                <h5 class="mb-0">Pengaduan</h5>
+                <h5 class="mb-0">Pelaporan</h5>
                 <p class="text-muted small mb-0">Pengaduan yang disampaikan</p>
               </div>
             </div>
@@ -184,7 +188,7 @@ $pengaduan_result = $stmt_pengaduan->get_result();
                 echo $count;
               ?>
             </h2>
-            <a href="pengaduan.php" class="btn btn-sm btn-light mt-3"><i class="bi bi-arrow-right me-1"></i> Detail</a>
+            <a href="pelaporan.php" class="btn btn-sm btn-light mt-3"><i class="bi bi-arrow-right me-1"></i> Detail</a>
           </div>
         </div>
       </div>
@@ -211,7 +215,7 @@ $pengaduan_result = $stmt_pengaduan->get_result();
                 echo $count;
               ?>
             </h2>
-            <a href="status-dokumen.php" class="btn btn-sm btn-light mt-3"><i class="bi bi-arrow-right me-1"></i> Detail</a>
+
           </div>
         </div>
       </div>
@@ -242,7 +246,7 @@ $pengaduan_result = $stmt_pengaduan->get_result();
                     while($row = $surat_result->fetch_assoc()): 
                       $status_class = '';
                       switch($row['status']) {
-                        case 'Diajukan':
+                        case 'Menunggu':
                           $status_class = 'bg-warning text-dark';
                           break;
                         case 'Diproses':
@@ -258,7 +262,7 @@ $pengaduan_result = $stmt_pengaduan->get_result();
                     ?>
                       <tr>
                         <td><?= $no++ ?></td>
-                        <td><?= htmlspecialchars($row['nama'])?></td>
+                        <td><?= htmlspecialchars($row['nama_surat'])?></td>
                         <td><?= date('d/m/Y', strtotime($row['tanggal_pengajuan'])) ?></td>
                         <td><span class="badge <?= $status_class ?>"><?= htmlspecialchars($row['status']) ?></span></td>
                       </tr>
@@ -270,12 +274,9 @@ $pengaduan_result = $stmt_pengaduan->get_result();
               <div class="text-center py-5">
                 <img src="/placeholder.svg?height=100&width=100" alt="No Data" class="mb-3" height="100">
                 <p class="text-muted">Belum ada permohonan surat</p>
-                <a href="layanan-surat.php" class="btn btn-sm btn-primary">Ajukan Surat</a>
+                <a href="pengajuan.php" class="btn btn-sm btn-primary">Ajukan Surat</a>
               </div>
             <?php endif; ?>
-          </div>
-          <div class="card-footer bg-white border-0 text-center">
-            <a href="layanan-surat.php" class="text-decoration-none">Lihat Semua<i class="bi bi-chevron-right ms-1"></i></a>
           </div>
         </div>
       </div>
@@ -284,7 +285,7 @@ $pengaduan_result = $stmt_pengaduan->get_result();
       <div class="col-lg-6 mb-4">
         <div class="card border-0 shadow-sm">
           <div class="card-header bg-light border-0">
-            <h5 class="mb-0"><i class="bi bi-megaphone me-2"></i>Pengaduan Terbaru</h5>
+            <h5 class="mb-0"><i class="bi bi-megaphone me-2"></i>Pelaporan Terbaru</h5>
           </div>
           <div class="card-body p-0">
             <?php if($pengaduan_result->num_rows > 0): ?>
@@ -304,8 +305,8 @@ $pengaduan_result = $stmt_pengaduan->get_result();
                     while($row = $pengaduan_result->fetch_assoc()): 
                       $status_class = '';
                       switch($row['status']) {
-                        case 'Menunggu':
-                          $status_class = 'bg-warning text-dark';
+                        case 'Diterima':
+                          $status_class = 'bg-secondary';
                           break;
                         case 'Diproses':
                           $status_class = 'bg-info text-dark';
@@ -320,7 +321,7 @@ $pengaduan_result = $stmt_pengaduan->get_result();
                     ?>
                       <tr>
                         <td><?= $no++ ?></td>
-                        <td><?= htmlspecialchars($row['kategori']) ?></td>
+                        <td><?= isset($row['nama_kategori']) ? htmlspecialchars($row['nama_kategori']) : 'Tidak ada kategori' ?></td>
                         <td><?= date('d/m/Y', strtotime($row['tanggal_laporan'])) ?></td>
                         <td><span class="badge <?= $status_class ?>"><?= htmlspecialchars($row['status']) ?></span></td>
                       </tr>
@@ -332,13 +333,11 @@ $pengaduan_result = $stmt_pengaduan->get_result();
               <div class="text-center py-5">
                 <img src="/placeholder.svg?height=100&width=100" alt="No Data" class="mb-3" height="100">
                 <p class="text-muted">Belum ada pengaduan</p>
-                <a href="pengaduan.php" class="btn btn-sm btn-danger">Buat Pengaduan</a>
+                <a href="pelaporan.php" class="btn btn-sm btn-danger">Buat Pengaduan</a>
               </div>
             <?php endif; ?>
           </div>
-          <div class="card-footer bg-white border-0 text-center">
-            <a href="pengaduan.php" class="text-decoration-none">Lihat Semua<i class="bi bi-chevron-right ms-1"></i></a>
-          </div>
+
         </div>
       </div>
 

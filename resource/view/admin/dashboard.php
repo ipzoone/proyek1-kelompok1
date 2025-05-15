@@ -10,6 +10,8 @@ if (!isset($_SESSION['is_admin_logged_in']) || $_SESSION['is_admin_logged_in'] !
 $total_artikel = $conn->query("SELECT COUNT(*) AS total_artikel FROM artikel")->fetch_assoc()['total_artikel'];
 $total_agenda = $conn->query("SELECT COUNT(*) AS total_agenda FROM agenda")->fetch_assoc()['total_agenda'];
 $total_pengguna = $conn->query("SELECT COUNT(*) AS total_pengguna FROM masyarakat")->fetch_assoc()['total_pengguna'];
+$total_surat = $conn->query("SELECT COUNT(*) AS total_surat FROM pengajuan_surat")->fetch_assoc()['total_surat'];
+$total_laporan = $conn->query("SELECT COUNT(*) AS total_laporan FROM laporan_warga")->fetch_assoc()['total_laporan'];
 
 $adminName = $_SESSION['username'];
 ?>
@@ -43,7 +45,7 @@ $adminName = $_SESSION['username'];
         <h1 class="fw-bold">Selamat Datang, <span class="text-primary"><?= htmlspecialchars($adminName); ?></span></h1>
     </div>
 
-    <h3 class="mb-3">Statistik Dashboard</h3>
+    <h3 class="mb-3 text-center fw-bold">Statistik Dashboard</h3>
     <div class="row g-4">
         <div class="col-md-4">
             <a href="artikel_crud.php" class="text-decoration-none">
@@ -74,6 +76,28 @@ $adminName = $_SESSION['username'];
                         <i class="bi bi-person-lines-fill display-4 text-warning mb-3"></i>
                         <h4 class="fw-bold"><?= $total_pengguna ?></h4>
                         <p class="text-muted">Total Pengguna</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a href="pengajuan.php" class="text-decoration-none">
+                <div class="card shadow-sm border-0 h-100">
+                    <div class="card-body text-center">
+                        <i class="bi bi-envelope-fill display-4 text-dark mb-3"></i> 
+                        <h4 class="fw-bold"><?= $total_surat ?></h4>
+                        <p class="text-muted">Total Pengajuan</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a href="laporan.php" class="text-decoration-none">
+                <div class="card shadow-sm border-0 h-100">
+                    <div class="card-body text-center">
+                        <i class="bi bi-megaphone-fill display-4 text-danger mb-3"></i>
+                        <h4 class="fw-bold"><?= $total_laporan ?></h4>
+                        <p class="text-muted">Total Laporan</p>
                     </div>
                 </div>
             </a>

@@ -101,7 +101,7 @@ $artikel = $result->fetch_assoc();
 
 <body class="bg-light">
     <div class="container py-5">
-        <a href="artikel.php" class="btn btn-danger mb-4">← Kembali</a>
+        <!-- <a href="artikel.php" class="btn btn-danger mb-4">← Kembali</a> -->
         
         <h1><?= htmlspecialchars($artikel['judul']) ?></h1>
         <p class="text-muted">

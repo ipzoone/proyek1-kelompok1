@@ -8,16 +8,19 @@ if (!isset($_SESSION['is_admin_logged_in']) || $_SESSION['is_admin_logged_in'] !
     exit;
 }
 
-// Ambil data pengajuan surat dengan join ke tabel masyarakat
+// Ambil data pengajuan surat dengan join ke tabel masyarakat dan jenis_surat
 $query = "
     SELECT 
         p.*,
-        m.nama
+        m.nama,
+        j.nama_surat AS jenis_surat
     FROM pengajuan_surat p
-    JOIN masyarakat m ON p.masyarakat_id = m.id
+    JOIN masyarakat m ON p.masyarakat_id = m.masyarakat_id
+    LEFT JOIN jenis_surat j ON p.jenis_surat_id = j.jenis_surat_id
     ORDER BY p.tanggal_pengajuan DESC
     LIMIT 50
 ";
+
 $result = $conn->query($query);
 
 // Cek error query
@@ -72,7 +75,7 @@ if (!$result) {
                     $status_class = '';
                     $status = $row['status'] ?? '';
                     switch($status) {
-                        case 'Diajukan':
+                        case 'Menunggu':
                             $status_class = 'bg-warning text-dark';
                             break;
                         case 'Diproses':

@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $newPin = $_POST['pin'] ?? '';
 
     // Ambil PIN sekarang dari DB
-    $stmt = $conn->prepare("SELECT pin FROM masyarakat WHERE id = ?");
+    $stmt = $conn->prepare("SELECT pin FROM masyarakat WHERE masyarakat_id = ?");
     $stmt->bind_param("i", $userId);
     $stmt->execute();
     $stmt->bind_result($hashedPinDB);
@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!empty($newPin)) {
         if (password_verify($currentPin, $hashedPinDB)) {
             $hashedNewPin = password_hash($newPin, PASSWORD_DEFAULT);
-            $stmt = $conn->prepare("UPDATE masyarakat SET pin = ? WHERE id = ?");
+            $stmt = $conn->prepare("UPDATE masyarakat SET pin = ? WHERE masyarakat_id = ?");
             $stmt->bind_param("si", $hashedNewPin, $userId);
             if ($stmt->execute()) {
                 $successMessage = "PIN berhasil diperbarui!";
@@ -119,7 +119,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </nav>
   </header>
 <body>
-           <div class="container my-5">
+      <div class="container my-5">
         <?php if (isset($_SESSION['is_logged_in'])): ?>
             <div class="settings-container">
                 <div class="card">
@@ -127,7 +127,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <i class="bi bi-gear-fill me-2"></i> Pengaturan Akun
                     </div>
                     <div class="card-body">
-                        <form action="update_setting.php" method="POST">
+                        <form action="setting.php" method="POST">
                             <div class="mb-4">
                                 <label for="username" class="form-label">Nama Pengguna:</label>
                                 <div class="input-group">
@@ -175,10 +175,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <?php endif; ?>
     </div>
     <script>
-        document.getElementById("show-password").addEventListener("change", function () {
-            const passwordInput = document.getElementById("pin");
-            passwordInput.type = this.checked ? "text" : "pin";
-        });
+          document.getElementById("show-password").addEventListener("change", function () {
+          const currentPinInput = document.getElementById("current_pin");
+          const newPinInput = document.getElementById("pin");
+
+          const type = this.checked ? "text" : "password";
+          currentPinInput.type = type;
+          newPinInput.type = type;
+    });
         </script>
 </body>
 </html>

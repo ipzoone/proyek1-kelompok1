@@ -21,9 +21,9 @@ $query = "
     SELECT 
         l.*,
         m.nama,
-        m.id as masyarakat_id
+        m.masyarakat_id as masyarakat_id
     FROM laporan_warga l
-    JOIN masyarakat m ON l.masyarakat_id = m.id
+    JOIN masyarakat m ON l.masyarakat_id = m.masyarakat_id
     WHERE l.id = '$id'
 ";
 $result = $conn->query($query);
@@ -189,18 +189,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="row">
                     <div class="col-md-6">
                         <p><strong>Pelapor:</strong> <?= htmlspecialchars($laporan['nama']) ?></p>
-                        <p><strong>Kategori:</strong> <?= htmlspecialchars($laporan['kategori']) ?></p>
-                        <p><strong>Prioritas:</strong> 
-                            <span class="badge bg-<?php 
-                                switch($laporan['prioritas']) {
-                                    case 'Rendah': echo 'secondary'; break;
-                                    case 'Sedang': echo 'primary'; break;
-                                    case 'Tinggi': echo 'danger'; break;
-                                    default: echo 'secondary';
-                                }
-                            ?>">
-                                <?= htmlspecialchars($laporan['prioritas']) ?>
-                            </span>
+                        <p><strong>Kategori:</strong> <?= htmlspecialchars($laporan['kategori_id']) ?></p>
                         </p>
                     </div>
                     <div class="col-md-6">
@@ -220,7 +209,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 
                 <?php if (!empty($laporan['foto'])): ?>
                 <div class="text-center">
-                    <img src="../uploads/laporan/<?= htmlspecialchars($laporan['foto']) ?>" alt="Foto Laporan" class="foto-laporan">
+                    <img src="../../img/<?= htmlspecialchars($laporan['foto']) ?>" alt="Foto Laporan" class="foto-laporan">
                 </div>
                 <?php endif; ?>
             </div>

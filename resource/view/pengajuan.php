@@ -15,7 +15,7 @@ $success_message = '';
 $error_message = '';
 
 // Ambil daftar jenis surat
-$jenis_query = "SELECT * FROM jenis_surat ORDER BY nama";
+$jenis_query = "SELECT * FROM jenis_surat ORDER BY nama_surat";
 $jenis_result = $conn->query($jenis_query);
 
 // Proses pengajuan surat
@@ -71,7 +71,7 @@ if ($check_column->num_rows == 0) {
 }
 
 // Ambil riwayat pengajuan
-$query = "SELECT ps.*, js.nama as jenis_surat_nama 
+$query = "SELECT ps.*, js.nama_surat as nama_surat
           FROM pengajuan_surat ps 
           JOIN jenis_surat js ON ps.jenis_surat_id = js.jenis_surat_id 
           WHERE ps.masyarakat_id = ? 
@@ -338,7 +338,7 @@ if (isset($_GET['mark_read']) && $_GET['mark_read'] == 1) {
                                 <select class="form-select" id="jenis_surat" name="jenis_surat" required>
                                     <option value="">-- Pilih Jenis Surat --</option>
                                     <?php while($row = $jenis_result->fetch_assoc()): ?>
-                                        <option value="<?= $row['jenis_surat_id'] ?>"><?= htmlspecialchars($row['nama']) ?></option>
+                                        <option value="<?= $row['jenis_surat_id'] ?>"><?= htmlspecialchars($row['nama_surat']) ?></option>
                                     <?php endwhile; ?>
                                 </select>
                             </div>
@@ -375,7 +375,7 @@ if (isset($_GET['mark_read']) && $_GET['mark_read'] == 1) {
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
+                                            <th>No</th>
                                             <th>Jenis Surat</th>
                                             <th>Tanggal</th>
                                             <th>Status</th>
@@ -383,12 +383,35 @@ if (isset($_GET['mark_read']) && $_GET['mark_read'] == 1) {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php $no = 1; while ($row = $result->fetch_assoc()): ?>
-                                            <tr class="<?= $row['is_read'] == 0 && $row['catatan_admin'] ? 'table-warning' : '' ?>">
+                                        <?php 
+                                        $no = 1; 
+                                        while ($row = $result->fetch_assoc()): 
+                                            // Tentukan warna berdasarkan status
+                                            $status_class = '';
+                                            switch ($row['status']) {
+                                                case 'Menunggu':
+                                                    $status_class = 'bg-warning text-dark';
+                                                    break;
+                                                case 'Diproses':
+                                                    $status_class = 'bg-info text-dark';
+                                                    break;
+                                                case 'Selesai':
+                                                    $status_class = 'bg-success text-white';
+                                                    break;
+                                                case 'Ditolak':
+                                                    $status_class = 'bg-danger text-white';
+                                                    break;
+                                            }
+
+                                            // Tambahkan warna khusus jika belum dibaca & ada catatan
+                                            $row_class = ($row['is_read'] == 0 && !empty($row['catatan_admin'])) ? 'table-warning' : '';
+                                           ?>
+                                            <tr class="<?= $row_class ?>">
                                                 <td><?= $no++ ?></td>
-                                                <td><?= htmlspecialchars($row['jenis_surat_nama']) ?></td>
+                                                <td><?= htmlspecialchars($row['nama_surat']) ?></td>
                                                 <td><?= date('d-m-Y', strtotime($row['tanggal_pengajuan'])) ?></td>
-                                                <td><?= htmlspecialchars($row['status']) ?></td>
+                                                   <td><span class="badge <?= $status_class ?>"><?= htmlspecialchars($row['status']) ?></span></td>
+                                                
                                                 <td>
                                                     <?php if (!empty($row['catatan_admin'])): ?>
                                                         <div class="tanggapan-admin <?= $row['is_read'] == 0 ? 'new-response' : '' ?>">
@@ -401,6 +424,7 @@ if (isset($_GET['mark_read']) && $_GET['mark_read'] == 1) {
                                             </tr>
                                         <?php endwhile; ?>
                                     </tbody>
+
                                 </table>
                             </div>
                         <?php else: ?>
@@ -411,7 +435,9 @@ if (isset($_GET['mark_read']) && $_GET['mark_read'] == 1) {
             </div>
         </div>
     </div>
-
+  <footer>
+    <p>&copy; 2025 Desa Pamayahan</p>
+  </footer>
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

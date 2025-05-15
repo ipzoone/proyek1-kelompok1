@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 12, 2025 at 08:57 AM
+-- Generation Time: May 13, 2025 at 06:52 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -69,7 +69,7 @@ CREATE TABLE `agenda` (
 --
 
 INSERT INTO `agenda` (`id`, `judul`, `deskripsi`, `tanggal`, `waktu`, `tempat`, `status`, `dibuat_pada`, `diubah_pada`) VALUES
-(1, 'agenda posyandu', 'poyandu gratis', '2025-04-18', '09:00:00', 'kantor desa pamayahan', 'Selesai', '2025-04-15 14:16:33', '2025-05-08 16:08:30'),
+(1, 'agenda posyandu', 'poyandu gratis', '2025-04-18', '09:00:00', 'kantor desa pamayahn', 'Selesai', '2025-04-15 14:16:33', '2025-05-08 16:08:30'),
 (2, 'gotong royong ', 'agenda gotong royong masayarakat pamayahan', '2025-05-07', '09:00:00', 'kantor desa pamayahan', 'Selesai', '2025-04-16 04:27:06', '2025-05-08 16:08:23'),
 (3, 'azhar lahiran', 'azhar lahiran ning pinggir kali', '2024-04-03', '09:00:00', 'pinggir kali', 'Selesai', '2025-04-22 06:58:52', '2025-05-08 16:08:35'),
 (4, 'Konvoi Persib Juara back to back ', 'persib juara dsjkhdjfjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj', '2025-06-19', '20:00:00', 'gedung sate', 'Aktif', '2025-04-24 04:26:23', '2025-05-09 03:00:05'),
@@ -107,7 +107,7 @@ INSERT INTO `artikel` (`id`, `judul`, `isi`, `gambar`, `dibuat_pada`, `penulis`)
 --
 
 CREATE TABLE `jenis_surat` (
-  `id` int NOT NULL,
+  `jenis_surat_id` int NOT NULL,
   `nama` varchar(100) NOT NULL,
   `deskripsi` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -116,7 +116,7 @@ CREATE TABLE `jenis_surat` (
 -- Dumping data for table `jenis_surat`
 --
 
-INSERT INTO `jenis_surat` (`id`, `nama`, `deskripsi`) VALUES
+INSERT INTO `jenis_surat` (`jenis_surat_id`, `nama`, `deskripsi`) VALUES
 (1, 'Surat Keterangan Domisili', 'Surat keterangan tempat tinggal'),
 (2, 'Surat Keterangan Tidak Mampu', 'Surat keterangan untuk keluarga tidak mampu'),
 (3, 'Surat Pengantar KTP', 'Surat pengantar untuk pembuatan KTP'),
@@ -180,7 +180,8 @@ CREATE TABLE `laporan_warga` (
 
 INSERT INTO `laporan_warga` (`id`, `masyarakat_id`, `nik`, `kategori`, `judul`, `isi`, `lokasi`, `foto`, `status`, `tanggal_laporan`, `tanggal_update`, `tanggapan_admin`, `prioritas`, `is_read`) VALUES
 (3, 16, NULL, 'Infrastruktur', 'saip', 'ali', 'mushaddiq', '', 'Diterima', '2025-05-12 13:27:02', NULL, NULL, 'Sedang', 0),
-(4, 16, NULL, 'Infrastruktur', 'saip', 'ali', 'mushaddiq', '', 'Diterima', '2025-05-12 13:29:23', '2025-05-12 08:30:28', 'oke meluncur', 'Sedang', 0);
+(4, 16, NULL, 'Infrastruktur', 'saip', 'ali', 'mushaddiq', '', 'Diterima', '2025-05-12 13:29:23', '2025-05-12 08:30:28', 'oke meluncur', 'Sedang', 0),
+(5, 16, NULL, 'Kesehatan', 'bpjs', 'tolong bpjs saya mati', 'rumah', '', 'Diterima', '2025-05-13 11:10:08', NULL, NULL, 'Sedang', 0);
 
 -- --------------------------------------------------------
 
@@ -204,7 +205,7 @@ INSERT INTO `masyarakat` (`id`, `nama`, `nik`, `pin`) VALUES
 (13, 'lukman', '43254356465767', '$2y$10$pQrM7ea3XgGZQu3BSRtFp.0BdfhQGTSxlAO5q8pBATCUlwN9R220u'),
 (14, 'hapiz', '43254356465765', '$2y$10$bebnitkD7l4tWIiSI8L95OTkZ2KbGy1NnfotpmUsf1xH7itdaIJxy'),
 (15, 'ido', '3275091234567870', '$2y$10$Ae8UBUzaImgofn0id01rIuQfpBnETOzc6IECYpowe0tGfmlTPTkdu'),
-(16, 'saif', '4325435777777', '$2y$10$ALmfbc0AiBp0bIUyUvxN0.GVfVVS6gyAz1FWr3xGnjHlzmruxRmYK');
+(16, '', '4325435777777', '$2y$10$fM365tPLi4LesTvm7E9WSOMdUbokdUgPTxJSiq6vKt8iFYF6iTYkq');
 
 -- --------------------------------------------------------
 
@@ -238,10 +239,11 @@ INSERT INTO `pengajuan_surat` (`id`, `masyarakat_id`, `jenis_surat_id`, `keteran
 (10, 16, 1, 'xx', '', 1, NULL, '2025-05-12 13:29:48', NULL, 'coba jenis surat', 'Menunggu', 0),
 (11, 16, 1, 'xx', '', 1, NULL, '2025-05-12 13:33:05', NULL, 'coba jenis surat', 'Menunggu', 0),
 (12, 16, 1, 'xx', '', 1, NULL, '2025-05-12 13:36:53', NULL, 'coba jenis surat', 'Menunggu', 0),
-(13, 16, 2, 'uhuyy', '', 1, '', '2025-05-12 13:37:17', NULL, 'pindah rumah', 'Diproses', 0),
-(14, 16, 2, 'uhuyy', '', 1, '', '2025-05-12 13:47:44', NULL, 'pindah rumah', 'Ditolak', 0),
+(13, 16, 2, 'uhuyy', '', 1, '', '2025-05-12 13:37:17', NULL, 'pindah rumah', 'Diproses', 1),
+(14, 16, 2, 'uhuyy', '', 1, '', '2025-05-12 13:47:44', NULL, 'pindah rumah', 'Ditolak', 1),
 (15, 16, 5, 'mau dagang', '', 1, 'ini udah selesai', '2025-05-12 13:48:20', '2025-05-12 07:19:59', 'mau buat usaha cireng', 'Selesai', 1),
-(16, 16, 5, 'mau dagang', '', 1, '', '2025-05-12 13:48:57', NULL, 'mau buat usaha cireng', 'Diproses', 1);
+(16, 16, 5, 'mau dagang', '', 1, '', '2025-05-12 13:48:57', NULL, 'mau buat usaha cireng', 'Diproses', 1),
+(17, 16, 4, 'da', '', 1, NULL, '2025-05-13 11:31:02', NULL, 'mau buat usaha kakak beta', 'Menunggu', 0);
 
 -- --------------------------------------------------------
 
@@ -290,7 +292,7 @@ ALTER TABLE `artikel`
 -- Indexes for table `jenis_surat`
 --
 ALTER TABLE `jenis_surat`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`jenis_surat_id`);
 
 --
 -- Indexes for table `kategori_laporan`
@@ -344,7 +346,7 @@ ALTER TABLE `artikel`
 -- AUTO_INCREMENT for table `laporan_warga`
 --
 ALTER TABLE `laporan_warga`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `masyarakat`
@@ -356,7 +358,7 @@ ALTER TABLE `masyarakat`
 -- AUTO_INCREMENT for table `pengajuan_surat`
 --
 ALTER TABLE `pengajuan_surat`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- Constraints for dumped tables
@@ -366,7 +368,7 @@ ALTER TABLE `pengajuan_surat`
 -- Constraints for table `pengajuan_surat`
 --
 ALTER TABLE `pengajuan_surat`
-  ADD CONSTRAINT `fk_jenis_surat` FOREIGN KEY (`jenis_surat_id`) REFERENCES `jenis_surat` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_jenis_surat` FOREIGN KEY (`jenis_surat_id`) REFERENCES `jenis_surat` (`jenis_surat_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

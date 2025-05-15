@@ -15,13 +15,15 @@ if (isset($_GET['status']) && !empty($_GET['status'])) {
     $status_filter = "WHERE l.status = '$status'";
 }
 
-// Ambil data laporan warga dengan join ke tabel masyarakat
+// Ambil data laporan warga dengan join ke tabel masyarakat dan kategori_laporan
 $query = "
     SELECT 
         l.*,
-        m.nama
+        m.nama,
+        kl.nama_laporan as kategori_nama
     FROM laporan_warga l
-    JOIN masyarakat m ON l.masyarakat_id = m.id
+    JOIN masyarakat m ON l.masyarakat_id = m.masyarakat_id
+    LEFT JOIN kategori_laporan kl ON l.kategori_id = kl.kategori_id
     $status_filter
     ORDER BY l.tanggal_laporan DESC
     LIMIT 50
@@ -89,7 +91,7 @@ if (!$result) {
                     $status_class = '';
                     switch($row['status']) {
                         case 'Diterima':
-                            $status_class = 'bg-warning text-dark';
+                            $status_class = 'bg-secondary';
                             break;
                         case 'Diproses':
                             $status_class = 'bg-info text-dark';
@@ -105,7 +107,7 @@ if (!$result) {
             <tr>
                 <td data-label="No"><?= $no++ ?></td>
                 <td data-label="Nama"><?= htmlspecialchars($row['nama']) ?></td>
-                <td data-label="Kategori"><?= htmlspecialchars($row['kategori']) ?></td>
+                <td data-label="Kategori"><?= htmlspecialchars($row['kategori_nama'] ?? 'Tidak ada kategori') ?></td>
                 <td data-label="Judul"><?= htmlspecialchars($row['judul']) ?></td>
                 <td data-label="Tanggal Laporan"><?= date('d-m-Y', strtotime($row['tanggal_laporan'])) ?></td>
                 <td data-label="Status"><span class="badge status-badge <?= $status_class ?>"><?= htmlspecialchars($row['status']) ?></span></td>

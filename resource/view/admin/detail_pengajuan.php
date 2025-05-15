@@ -21,11 +21,11 @@ $query = "
     SELECT 
         p.*,
         m.nama,
-        m.id as masyarakat_id,
-        j.nama as nama_jenis_surat
+        m.masyarakat_id as masyarakat_id,
+        j.nama_surat as nama_surat
     FROM pengajuan_surat p
-    JOIN masyarakat m ON p.masyarakat_id = m.id
-    LEFT JOIN jenis_surat j ON p.jenis_surat_id = j.id
+    JOIN masyarakat m ON p.masyarakat_id = m.masyarakat_id
+    LEFT JOIN jenis_surat j ON p.jenis_surat_id = j.jenis_surat_id
     WHERE p.id = '$id'
 ";
 $result = $conn->query($query);
@@ -194,7 +194,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="row">
                     <div class="col-md-6">
                         <p><strong>Pemohon:</strong> <?= htmlspecialchars($pengajuan['nama']) ?></p>
-                        <p><strong>Jenis Surat:</strong> <?= htmlspecialchars($pengajuan['nama_jenis_surat'] ?? $pengajuan['jenis_surat']) ?></p>
+                        <p><strong>Jenis Surat:</strong> <?= htmlspecialchars($pengajuan['nama_surat'] ?? $pengajuan['jenis_surat']) ?></p>
                     </div>
                     <div class="col-md-6">
                         <p><strong>Tanggal Pengajuan:</strong> <?= date('d-m-Y H:i', strtotime($pengajuan['tanggal_pengajuan'])) ?></p>
@@ -217,7 +217,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <?php if (!empty($pengajuan['dokumen'])): ?>
                 <div class="mt-3">
                     <p><strong>Dokumen Pendukung:</strong></p>
-                    <a href="../uploads/dokumen/<?= htmlspecialchars($pengajuan['dokumen']) ?>" class="btn btn-sm btn-outline-primary" target="_blank">
+                    <a href="../../dokumen/<?= htmlspecialchars($pengajuan['dokumen']) ?>" class="btn btn-sm btn-outline-primary" target="_blank">
                         <i class="bi bi-file-earmark"></i> Lihat Dokumen
                     </a>
                 </div>

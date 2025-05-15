@@ -1,27 +1,28 @@
 <?php
 include "../db.php";
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') { // Mengecek apakah form dikirim menggunakan metode POST
     // Ambil data dari form
-    $judul = $_POST['judul'];
-    $isi = $_POST['isi'];
-    $penulis = $_POST['penulis'];  
+    $judul = $_POST['judul']; // Menyimpan nilai input 'judul' dari form
+    $isi = $_POST['isi']; // Menyimpan nilai input 'isi' dari form
+    $penulis = $_POST['penulis']; // Menyimpan nilai input 'penulis' dari form
 
     // Mengelola gambar
-    $gambar = null;
-    if ($_FILES['gambar']['name']) {
-        $gambar = time() . '_' . $_FILES['gambar']['name'];
-        move_uploaded_file($_FILES['gambar']['tmp_name'], '../../img/' . $gambar);
+    $gambar = null; // Variabel untuk menyimpan nama gambar
+    if ($_FILES['gambar']['name']) { // Mengecek apakah ada gambar yang diunggah
+        $gambar = time() . '_' . $_FILES['gambar']['name']; // Membuat nama file gambar unik menggunakan timestamp
+        move_uploaded_file($_FILES['gambar']['tmp_name'], '../../img/' . $gambar); // Memindahkan file gambar ke folder img
     }
 
     // Menyimpan data ke database
-    $stmt = $conn->prepare("INSERT INTO artikel (judul, isi, gambar, penulis) VALUES (?, ?, ?, ?)");
-    $stmt->bind_param("ssss", $judul, $isi, $gambar, $penulis);
-    $stmt->execute();
+    $stmt = $conn->prepare("INSERT INTO artikel (judul, isi, gambar, penulis) VALUES (?, ?, ?, ?)"); // Menyiapkan query untuk insert data
+    $stmt->bind_param("ssss", $judul, $isi, $gambar, $penulis); // Mengikat parameter dengan query SQL
+    $stmt->execute(); // Menjalankan query untuk memasukkan data ke database
 
-    header("Location: artikel_crud.php");
-    exit;
+    header("Location: artikel_crud.php"); // Mengarahkan pengguna ke halaman artikel_crud.php setelah data disimpan
+    exit; // Menghentikan eksekusi lebih lanjut
 }
+
 ?>
 
 <!DOCTYPE html>
