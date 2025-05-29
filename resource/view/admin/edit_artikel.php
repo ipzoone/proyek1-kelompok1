@@ -1,56 +1,58 @@
 <?php
-include "../db.php";  // Menghubungkan ke file db.php yang berisi konfigurasi koneksi ke database
-session_start();  // Memulai sesi PHP untuk melacak informasi session
+include "../db.php";
+session_start();
 
-// Mengecek apakah parameter 'id' ada dalam URL, jika tidak ada maka tampilkan pesan error
 if (!isset($_GET['id'])) {
-    echo "Artikel tidak ditemukan!";  // Menampilkan pesan jika parameter 'id' tidak ditemukan
-    exit;  // Menghentikan eksekusi script lebih lanjut
+    echo "Artikel tidak ditemukan!";
+    exit;
 }
 
-$id = $_GET['id'];  // Mengambil nilai 'id' dari URL
+$id = $_GET['id'];
 
-// Mempersiapkan query untuk mengambil data artikel berdasarkan id yang diberikan
 $stmt = $conn->prepare("SELECT * FROM artikel WHERE id = ?");
-$stmt->bind_param("i", $id);  // Mengikat parameter $id ke query dengan tipe data integer ('i')
-$stmt->execute();  // Menjalankan query yang telah dipersiapkan
-$result = $stmt->get_result();  // Mengambil hasil query
-$artikel = $result->fetch_assoc();  // Mengambil data artikel sebagai array asosiatif
+$stmt->bind_param("i", $id);
+$stmt->execute();
+$result = $stmt->get_result();
+$artikel = $result->fetch_assoc();
 
-// Mengecek apakah artikel ditemukan berdasarkan id, jika tidak ada artikel maka tampilkan pesan error
 if (!$artikel) {
-    echo "Artikel tidak ditemukan!";  // Menampilkan pesan jika artikel tidak ditemukan
-    exit;  // Menghentikan eksekusi script lebih lanjut
+    echo "Artikel tidak ditemukan!";
+    exit;
 }
 
-// Mengecek apakah request method adalah POST 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $judul = $_POST['judul'];
     $isi = $_POST['isi'];
     $penulis = $_POST['penulis'];  
-    $gambar = $_FILES['gambar']['name'];  // Menyimpan nama file gambar yang di-upload
+    $gambarBaru = $_FILES['gambar']['name'];
 
-    // Mengecek apakah ada gambar yang di-upload, jika ada maka gambar akan diproses
-    if (!empty($gambar)) {
-        $target_dir = "../../img/";  // Menentukan folder tujuan untuk menyimpan gambar
-        $target_file = $target_dir . basename($gambar);  // Menentukan lokasi file yang akan disimpan
-        move_uploaded_file($_FILES["gambar"]["tmp_name"], $target_file);  // Memindahkan file gambar ke folder tujuan
+    // Cek apakah ada gambar baru yang diupload
+    if (!empty($gambarBaru)) {
+        $target_dir = "../../img/";
+        $target_file = $target_dir . basename($gambarBaru);
+
+        // Hapus gambar lama jika file-nya ada
+        if (!empty($artikel['gambar']) && file_exists($target_dir . $artikel['gambar'])) {
+            unlink($target_dir . $artikel['gambar']);
+        }
+
+        // Upload gambar baru
+        move_uploaded_file($_FILES["gambar"]["tmp_name"], $target_file);
+        $gambar = $gambarBaru;
     } else {
-        $gambar = $artikel['gambar'];  // Jika tidak ada gambar yang di-upload, maka gunakan gambar lama dari database
+        // Jika tidak ada gambar baru, gunakan gambar lama
+        $gambar = $artikel['gambar'];
     }
 
-    // Menyimpan perubahan artikel ke dalam database
     $stmt = $conn->prepare("UPDATE artikel SET judul = ?, isi = ?, gambar = ?, penulis = ? WHERE id = ?");
-    $stmt->bind_param("ssssi", $judul, $isi, $gambar, $penulis, $id);  // Mengikat parameter dengan tipe data yang sesuai
-    $stmt->execute();  // Menjalankan query untuk melakukan update data artikel
+    $stmt->bind_param("ssssi", $judul, $isi, $gambar, $penulis, $id);
+    $stmt->execute();
 
-    // Setelah data berhasil disimpan, redirect ke halaman artikel_crud.php
     header("Location: artikel_crud.php");
-    exit;  // Menghentikan eksekusi script setelah redirect
+    exit;
 }
 ?>
 
-?>
 
 <!DOCTYPE html>
 <html lang="id">

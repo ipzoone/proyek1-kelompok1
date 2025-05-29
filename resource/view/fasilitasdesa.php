@@ -149,7 +149,7 @@ session_start();
               <div class="card-body">
                 <div class="d-flex align-items-center mb-3">
                   <div class="bg-primary p-3 rounded-circle text-white me-3">
-                    <i class="bi bi-building" p-3 rounded-circle text-white me-3">
+                    <!-- <i class="bi bi-building" p-3 rounded-circle text-white me-3"> -->
                     <i class="bi bi-building-fill" style="font-size: 1.5rem;"></i>
                   </div>
                   <h4 class="mb-0">SMP Negeri Pamayahan</h4>

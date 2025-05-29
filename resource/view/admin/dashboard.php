@@ -45,7 +45,7 @@ $adminName = $_SESSION['username'];
         <h1 class="fw-bold">Selamat Datang, <span class="text-primary"><?= htmlspecialchars($adminName); ?></span></h1>
     </div>
 
-    <h3 class="mb-3 text-center fw-bold">Statistik Dashboard</h3>
+    <h3 class="mb-3 text-center fw-bold">STATISTIK</h3>
     <div class="row g-4">
         <div class="col-md-4">
             <a href="artikel_crud.php" class="text-decoration-none">
