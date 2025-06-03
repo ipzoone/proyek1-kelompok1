@@ -146,7 +146,7 @@ $pengaduan_result = $stmt_pengaduan->get_result();
                 <i class="bi bi-envelope-paper text-primary" style="font-size: 1.5rem;"></i>
               </div>
               <div>
-                <h5 class="mb-0">Permohonan Surat</h5>
+                <h5 class="mb-0">Pengajuan Surat</h5>
                 <p class="text-muted small mb-0">Total pengajuan Anda</p>
               </div>
             </div>
@@ -200,7 +200,7 @@ $pengaduan_result = $stmt_pengaduan->get_result();
                 <i class="bi bi-check-circle text-success" style="font-size: 1.5rem;"></i>
               </div>
               <div>
-                <h5 class="mb-0">Dokumen Selesai</h5>
+                <h5 class="mb-0">Selesai</h5>
                 <p class="text-muted small mb-0">Dokumen siap diambil</p>
               </div>
             </div>

@@ -18,7 +18,7 @@ session_start();
       rel="stylesheet"
     />
     <script src="../js/script.js"></script>
-    <title>Sejarah Desa</title>
+    <title>Sejarah Desa - Desa Pamayahan</title>
   </head>
   <body>
   <div class="bg-head">

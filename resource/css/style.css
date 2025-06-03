@@ -470,6 +470,7 @@ nav a:hover {
 }
 .peta-container p {
   font-family: "Arial", sans-serif;
+  font-size: 13px;
   margin-top: 10px;
   color: #333333d6;
 }
@@ -507,6 +508,10 @@ footer {
 
 /*RESPONSIVE MOBILE*/
 @media (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+  }
+
   .bg-head h1 {
     font-size: 25px;
     padding: 10px;
@@ -539,22 +544,97 @@ footer {
   .nav-links {
     display: none;
     position: absolute;
-    top: 100%;
-    left: -10px;
-    right: 0;
+    z-index: 9999;
+    top: 100%; /* tepat di bawah navbar */
+    left: 0; /* mulai dari kiri container */
+    width: max-content; /* sesuaikan lebar dengan isi menu */
     background: #7886c7;
     flex-direction: column;
-    padding: 80px;
+    padding: 15px 15px;
+    border-radius: 7px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* optional agar menonjol */
   }
 
   .nav-links.active {
     display: flex;
   }
+
   nav {
     margin-top: 0;
+    position: relative; /* referensi posisi untuk nav-links */
   }
+
   nav a {
-    padding: 10px auto;
+    padding: 5px 10px;
+    color: white;
+    text-decoration: none;
+    font-size: 0.8em; /* kecilkan font */
+    font-weight: 500;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    border-radius: 5px;
+    text-align: left; /* pastikan teks rata kiri */
+    white-space: nowrap; /* agar teks tidak wrap */
+  }
+
+  /* Hilangkan margin atau padding otomatis yg aneh */
+  nav a {
+    margin: 0;
+  }
+
+  .home-icons {
+    display: flex;
+    gap: 10px;
+    /* align-items: center; */
+  }
+  .home-icons:hover {
+    background-color: rgba(255, 255, 255, 0.183);
+    border-radius: 5px;
+  }
+  .home-icons img {
+    width: 25px;
+    height: auto;
+  }
+  .nav-kanan {
+    margin-left: 350px;
+    display: flex;
+  }
+  .login-btn a {
+    margin: 5px;
+    background-color: green;
+  }
+  .login-btn button {
+    background-color: #2c9855;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 20px;
+    cursor: pointer;
+    margin-right: 250px;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  .login-btn button:hover {
+    background-color: #4caf50;
+    color: white;
+    text-decoration: none;
+  }
+  .nav-kanan span {
+    margin-left: 70px;
+    display: flex;
+    color: white;
+  }
+  .nav-kanan .logout-btn {
+    background-color: red;
+    margin-left: 70px;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 7px;
+  }
+
+  .pojok-kanan {
+    margin-left: 200px;
+    display: flex;
   }
 
   .nav-kiri,
@@ -599,85 +679,44 @@ footer {
     order: 0;
   }
 
-  /* CONTENT KIRI*/
-  /* .carousel {
-    position: relative;
-    width: 80%;
-    max-width: 800px;
-    margin: auto;
-    overflow: hidden;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-  } */
-
   /* CAROUSEL */
   .carousel {
-    position: relative;
-    max-width: 800px;
-    margin: auto;
-    overflow: hidden;
-    margin: 20px;
-    border-radius: 5px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-  }
-
-  .carousel-container {
-    display: flex;
-    transition: transform 0.5s ease-in-out;
-  }
-
-  .slide {
-    min-width: 100%;
-    box-sizing: border-box;
-    position: relative;
-  }
-
-  .slide img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
+    width: 580px;
+    height: 300px;
+    margin-right: 0;
   }
 
   .caption {
-    position: absolute;
-    bottom: 0px;
-    transform: translateX(-50%);
-    background: rgba(0, 0, 0, 0.6);
-    color: white;
-    padding: 30px 60px;
-    border-radius: 5px;
-    text-align: center;
-    width: 80%;
+    font-size: 0.8em;
+    padding: 10px 20px;
+    margin-bottom: 90px;
+    width: 90%;
   }
 
   .carousel button {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
+    font-size: 20px;
+    padding: 8px;
+  }
+
+  .agenda {
     padding: 10px;
-    cursor: pointer;
-    font-size: 24px;
-  }
-  .carousel button:hover {
-    background: rgba(0, 0, 0, 0.8);
+    margin-left: 10px;
   }
 
-  .prev {
-    left: 10px;
+  .agenda h3 {
+    font-size: 1em;
   }
 
-  .next {
-    right: 10px;
+  .list-agenda strong,
+  .list-agenda span {
+    font-size: 0.85em;
   }
 
   /* KONTEN KANAN */
   .content-right {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    /* justify-content: center;
+    align-items: center; */
     gap: 20px;
     flex-wrap: wrap;
   }
@@ -692,10 +731,20 @@ footer {
     border-radius: 5px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     height: 300px;
-    width: 300px;
+    width: 500px;
+    margin-left: 70px;
+    /* display: flex; */
     justify-content: center;
     align-items: center;
-    margin: 20px 0;
+    /* margin: 20px 0; */
+  }
+  .profil-kades h3 {
+    margin: 0 0 10px 0;
+    font-size: 15px;
+    text-align: center;
+    padding: 20px;
+    color: white;
+    background-color: #787bc7;
   }
   .profil-kades img {
     width: 100%;
@@ -712,7 +761,7 @@ footer {
     justify-content: center;
     margin-top: 10px;
     display: flex;
-    font-size: 20px;
+    font-size: 15px;
     font-weight: bold;
   }
   /*PETA*/
@@ -721,19 +770,27 @@ footer {
     padding: 20px;
     border-radius: 10px;
     height: 200px;
-    width: 300px;
+    width: 600px;
+    margin-left: 10px;
+    margin-right: 300px;
     text-align: center;
     position: relative;
   }
   .peta-container h2 {
     margin: 0 0 10px 0;
     font-size: 15px;
-    font-weight: bold;
+    /* font-weight: bold; */
+  }
+  .peta-container p {
+    font-family: "Arial", sans-serif;
+    margin-top: 10px;
+    font-size: 10px;
+    color: #333333d6;
   }
   .peta {
     flex: 1;
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
   }
 }

@@ -21,11 +21,14 @@ $query = "
     SELECT 
         l.*,
         m.nama,
-        m.masyarakat_id as masyarakat_id
+        m.masyarakat_id as masyarakat_id,
+        k.nama_laporan
     FROM laporan_warga l
-    JOIN masyarakat m ON l.masyarakat_id = m.masyarakat_id
-    WHERE l.id = '$id'
-";
+    JOIN masyarakat m ON l.masyarakat_id = m.masyarakat_id 
+    JOIN kategori_laporan k ON l.kategori_id = k.kategori_id   
+    WHERE l.id = '$id' 
+";   
+
 $result = $conn->query($query);
 
 // Cek apakah data ditemukan
@@ -45,8 +48,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $update_query = "
         UPDATE laporan_warga 
         SET status = '$status', 
-            tanggapan_admin = '$tanggapan', 
-            tanggal_update = '$tanggal_update' 
+        tanggapan_admin = '$tanggapan', 
+        tanggal_update = '$tanggal_update' 
         WHERE id = '$id'
     ";
     
@@ -189,7 +192,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="row">
                     <div class="col-md-6">
                         <p><strong>Pelapor:</strong> <?= htmlspecialchars($laporan['nama']) ?></p>
-                        <p><strong>Kategori:</strong> <?= htmlspecialchars($laporan['kategori_id']) ?></p>
+                        <p><strong>Kategori:</strong> <?= htmlspecialchars($laporan['nama_laporan']) ?></p>
                         </p>
                     </div>
                     <div class="col-md-6">

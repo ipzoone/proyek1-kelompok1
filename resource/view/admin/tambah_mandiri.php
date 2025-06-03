@@ -6,10 +6,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nama = $_POST['nama'];
     $pin = $_POST['pin'];
 
+    // Validasi panjang NIK
+    if (strlen($nik) > 16) {
+        echo "<script>
+                alert('Maaf, NIK tidak valid. Maksimal 16 karakter.');
+                window.history.back();
+              </script>";
+        exit;
+    }
+
     // Hash PIN sebelum disimpan ke database
     $hash = password_hash($pin, PASSWORD_DEFAULT);
 
-    // Menyimpan data NIK, Nama, dan PIN yang telah di-hash ke database
     $sql = "INSERT INTO masyarakat (nik, nama, pin) VALUES (?, ?, ?)";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("sss", $nik, $nama, $hash);
@@ -19,6 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     exit;
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="id">

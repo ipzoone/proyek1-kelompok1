@@ -126,7 +126,7 @@ session_start();
                   <div class="bg-primary p-3 rounded-circle text-white me-3">
                     <i class="bi bi-building" style="font-size: 1.5rem;"></i>
                   </div>
-                  <h4 class="mb-0">SD Negeri Pamayahan</h4>
+                  <h4 class="mb-0">SD Negeri 1 Pamayahan</h4>
                 </div>
                 <p>Sekolah Dasar Negeri yang terletak di pusat Desa Pamayahan. Memiliki 12 ruang kelas, perpustakaan, dan lapangan olahraga.</p>
                 <div class="d-flex align-items-center mt-3">
@@ -152,7 +152,7 @@ session_start();
                     <!-- <i class="bi bi-building" p-3 rounded-circle text-white me-3"> -->
                     <i class="bi bi-building-fill" style="font-size: 1.5rem;"></i>
                   </div>
-                  <h4 class="mb-0">SMP Negeri Pamayahan</h4>
+                  <h4 class="mb-0">SMP Negeri 1 Lohbener</h4>
                 </div>
                 <p>Sekolah Menengah Pertama Negeri yang melayani pendidikan untuk anak-anak Desa Pamayahan dan sekitarnya. Memiliki 9 ruang kelas, laboratorium komputer, dan perpustakaan.</p>
                 <div class="d-flex align-items-center mt-3">
@@ -170,17 +170,16 @@ session_start();
             </div>
           </div>
 
-          <!-- Fasilitas Kesehatan -->
           <div class="col-md-6 col-lg-4 mb-4">
             <div class="card h-100 shadow-sm">
               <div class="card-body">
                 <div class="d-flex align-items-center mb-3">
-                  <div class="bg-danger p-3 rounded-circle text-white me-3">
-                    <i class="bi bi-hospital-fill" style="font-size: 1.5rem;"></i>
+                  <div class="bg-primary p-3 rounded-circle text-white me-3">
+                    <i class="bi bi-shop" style="font-size: 1.5rem;"></i>
                   </div>
-                  <h4 class="mb-0">Puskesmas Pembantu</h4>
+                  <h4 class="mb-0">TK Garuda</h4>
                 </div>
-                <p>Puskesmas Pembantu yang melayani kebutuhan kesehatan dasar masyarakat Desa Pamayahan. Memiliki ruang periksa, ruang obat, dan ruang tindakan.</p>
+                <!-- <p></p> -->
                 <div class="d-flex align-items-center mt-3">
                   <i class="bi bi-geo-alt-fill text-danger me-2"></i>
                   <span>Jl. Raya Pamayahan No. 20</span>
@@ -191,7 +190,32 @@ session_start();
                 </div>
               </div>
               <div class="card-footer bg-white">
-                <span class="badge bg-danger">Kesehatan</span>
+                <span class="badge bg-primary">Pendidikan</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100 shadow-sm">
+              <div class="card-body">
+                <div class="d-flex align-items-center mb-3">
+                  <div class="bg-primary p-3 rounded-circle text-white me-3">
+                    <i class="bi bi-shop" style="font-size: 1.5rem;"></i>
+                  </div>
+                  <h4 class="mb-0">Paud Bougenvile</h4>
+                </div>
+                <!-- <p></p> -->
+                <div class="d-flex align-items-center mt-3">
+                  <i class="bi bi-geo-alt-fill text-danger me-2"></i>
+                  <span>Jl. Raya Pamayahan No. 25</span>
+                </div>
+                 <div class="d-flex align-items-center mt-2">
+                  <i class="bi bi-telephone-fill text-primary me-2"></i>
+                  <span>0838-3570-8854</span>
+                </div>
+              </div>
+              <div class="card-footer bg-white">
+                <span class="badge bg-primary">Pendidikan</span>
               </div>
             </div>
           </div>
@@ -204,7 +228,7 @@ session_start();
                   <div class="bg-success p-3 rounded-circle text-white me-3">
                     <i class="bi bi-building-fill" style="font-size: 1.5rem;"></i>
                   </div>
-                  <h4 class="mb-0">Masjid Jami Pamayahan</h4>
+                  <h4 class="mb-0">Masjid Jami Al-Muqaddimah</h4>
                 </div>
                 <p>Masjid utama di Desa Pamayahan yang dapat menampung hingga 500 jamaah. Dilengkapi dengan tempat wudhu, toilet, dan ruang serbaguna untuk kegiatan keagamaan.</p>
                 <div class="d-flex align-items-center mt-3">
@@ -248,30 +272,6 @@ session_start();
             </div>
           </div>
 
-          <div class="col-md-6 col-lg-4 mb-4">
-            <div class="card h-100 shadow-sm">
-              <div class="card-body">
-                <div class="d-flex align-items-center mb-3">
-                  <div class="bg-info p-3 rounded-circle text-white me-3">
-                    <i class="bi bi-shop" style="font-size: 1.5rem;"></i>
-                  </div>
-                  <h4 class="mb-0">Pasar Desa Pamayahan</h4>
-                </div>
-                <p>Pasar tradisional yang menjadi pusat kegiatan ekonomi masyarakat Desa Pamayahan. Beroperasi setiap hari dengan komoditas utama hasil pertanian dan kebutuhan sehari-hari.</p>
-                <div class="d-flex align-items-center mt-3">
-                  <i class="bi bi-geo-alt-fill text-danger me-2"></i>
-                  <span>Jl. Raya Pamayahan No. 25</span>
-                </div>
-                <div class="d-flex align-items-center mt-2">
-                  <i class="bi bi-clock-fill text-primary me-2"></i>
-                  <span>05.00 - 12.00 WIB</span>
-                </div>
-              </div>
-              <div class="card-footer bg-white">
-                <span class="badge bg-info">Fasilitas Umum</span>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
 
@@ -285,7 +285,7 @@ session_start();
                   <div class="bg-primary p-3 rounded-circle text-white me-3">
                     <i class="bi bi-building-fill" style="font-size: 1.5rem;"></i>
                   </div>
-                  <h4 class="mb-0">SD Negeri Pamayahan</h4>
+                  <h4 class="mb-0">SD Negeri 1 Pamayahan</h4>
                 </div>
                 <p>Sekolah Dasar Negeri yang terletak di pusat Desa Pamayahan. Memiliki 12 ruang kelas, perpustakaan, dan lapangan olahraga.</p>
                 <div class="d-flex align-items-center mt-3">
@@ -310,7 +310,7 @@ session_start();
                   <div class="bg-primary p-3 rounded-circle text-white me-3">
                     <i class="bi bi-building-fill" style="font-size: 1.5rem;"></i>
                   </div>
-                  <h4 class="mb-0">SMP Negeri Pamayahan</h4>
+                  <h4 class="mb-0">SMP Negeri 1 Lohbener</h4>
                 </div>
                 <p>Sekolah Menengah Pertama Negeri yang melayani pendidikan untuk anak-anak Desa Pamayahan dan sekitarnya. Memiliki 9 ruang kelas, laboratorium komputer, dan perpustakaan.</p>
                 <div class="d-flex align-items-center mt-3">
@@ -328,10 +328,60 @@ session_start();
             </div>
           </div>
         </div>
-      </div>
+        
+        <div class="col-md-6 col-lg-4 mb-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <div class="d-flex align-items-center mb-3">
+                  <div class="bg-primary p-3 rounded-circle text-white me-3">
+                    <i class="bi bi-building-fill" style="font-size: 1.5rem;"></i>
+                  </div>
+                  <h4 class="mb-0">TK Garuda</h4>
+                </div>
+                <!-- <p></p> -->
+                <div class="d-flex align-items-center mt-3">
+                  <i class="bi bi-geo-alt-fill text-danger me-2"></i>
+                  <span>Jl. Raya Pamayahan No. 20</span>
+                </div>
+                <div class="d-flex align-items-center mt-2">
+                  <i class="bi bi-telephone-fill text-primary me-2"></i>
+                  <span>0838-3570-8854</span>
+                </div>
+              </div>
+              <div class="card-footer bg-white">
+                <span class="badge bg-primary">Pendidikan</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100 shadow-sm">
+              <div class="card-body">
+                <div class="d-flex align-items-center mb-3">
+                  <div class="bg-primary p-3 rounded-circle text-white me-3">
+                    <i class="bi bi-shop" style="font-size: 1.5rem;"></i>
+                  </div>
+                  <h4 class="mb-0">Paud Bougenvile</h4>
+                </div>
+                <!-- <p></p> -->
+                <div class="d-flex align-items-center mt-3">
+                  <i class="bi bi-geo-alt-fill text-danger me-2"></i>
+                  <span>Jl. Raya Pamayahan No. 25</span>
+                </div>
+                 <div class="d-flex align-items-center mt-2">
+                  <i class="bi bi-telephone-fill text-primary me-2"></i>
+                  <span>0838-3570-8854</span>
+                </div>
+              </div>
+              <div class="card-footer bg-white">
+                <span class="badge bg-primary">Pendidikan</span>
+              </div>
+            </div>
+          </div>
+        </div>
 
       <!-- Fasilitas Kesehatan -->
-      <div class="tab-pane fade" id="kesehatan">
+      <!-- <div class="tab-pane fade" id="kesehatan">
         <div class="row">
           <div class="col-md-6 col-lg-4 mb-4">
             <div class="card h-100 shadow-sm">
@@ -359,7 +409,7 @@ session_start();
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <!-- Tempat Ibadah -->
       <div class="tab-pane fade" id="ibadah">
@@ -419,7 +469,7 @@ session_start();
             </div>
           </div>
 
-          <div class="col-md-6 col-lg-4 mb-4">
+          <!-- <div class="col-md-6 col-lg-4 mb-4">
             <div class="card h-100 shadow-sm">
               <div class="card-body">
                 <div class="d-flex align-items-center mb-3">
@@ -442,7 +492,7 @@ session_start();
                 <span class="badge bg-info">Fasilitas Umum</span>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
