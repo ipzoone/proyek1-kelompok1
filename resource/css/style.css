@@ -497,13 +497,11 @@ nav a:hover {
   color: #343a40;
 }
 
-footer {
+.footer {
   background-color: #787bc7;
   color: white;
-  text-align: center;
-  padding: 8px;
-  font-size: 0.8em;
-  margin-top: auto;
+  padding: 2rem 0;
+  margin-top: 3rem;
 }
 
 /*RESPONSIVE MOBILE*/
@@ -551,7 +549,7 @@ footer {
     background: #7886c7;
     flex-direction: column;
     padding: 15px 15px;
-    border-radius: 7px;
+    border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* optional agar menonjol */
   }
 

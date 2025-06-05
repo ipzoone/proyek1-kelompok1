@@ -177,8 +177,32 @@ session_start();
 
       </section>
     </div>
-    <footer>
-      <p>&copy; 2025 Desa Pamayahan</p>
+   <footer class="footer mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5 class="mb-3">DESA PAMAYAHAN</h5>
+                    <p>Website Pemerintah Desa Pamayahan</p>
+                    <div class="d-flex gap-3 mt-3">
+                        <a href="#" class="text-white"><i class="bi bi-facebook fs-5"></i></a>
+                        <a href="#" class="text-white"><i class="bi bi-instagram fs-5"></i></a>
+                        <a href="#" class="text-white"><i class="bi bi-twitter fs-5"></i></a>
+                    </div>
+                </div>
+               
+                <div class="col-md-4">
+                    <h5 class="mb-3">Kontak</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="bi bi-telephone me-2"></i> (0831) 01498510</li>
+                        <li class="mb-2"><i class="bi bi-envelope me-2"></i> pamayahanpemdes@gmail.com</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="mt-4 mb-3 border-light">
+            <div class="text-center">
+                <p class="mb-0">&copy; <?= date('Y') ?> Desa Pamayahan. Hak Cipta Dilindungi.</p>
+            </div>
+        </div>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   </body>
